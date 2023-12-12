@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\ATD-API.props" />
+</Project>
