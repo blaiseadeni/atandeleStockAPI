@@ -23,7 +23,7 @@ namespace ATD_API.Repositories.Classes
 
         public async Task<bool> DeleteAsync(Guid id)
         {
-            var result = _myDbContext.factures.FirstOrDefault(a => a.Id == id);
+            var result = _myDbContext.factures.FirstOrDefault(a => a.id == id);
             if (result != null)
             {
                 _myDbContext.factures.Remove(result);
@@ -35,13 +35,14 @@ namespace ATD_API.Repositories.Classes
 
         public async Task<IEnumerable<Facture>> FindAllAsync()
         {
-            var result = await _myDbContext.factures.Include(d => d.DetailFactures).ToListAsync();
+            var result = await _myDbContext.factures.Include(d => d.detailFactures).ToListAsync();
             return result;
+
         }
 
         public async Task<Facture> FindByIdAsync(Guid id)
         {
-            var result = await _myDbContext.factures.FirstOrDefaultAsync(c => c.Id == id);
+            var result = await _myDbContext.factures.FirstOrDefaultAsync(c => c.id == id);
             return result;
         }
 

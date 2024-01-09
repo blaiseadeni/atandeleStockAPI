@@ -2,7 +2,7 @@
 {
     public class PortefeuilleList
     {
-        public Guid Id { get; set; }
+        public Guid id { get; set; }
         public Guid clientId { get; set; }
         public string client { get; set; }
         public Guid monnaieId { get; set; }

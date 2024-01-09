@@ -3,24 +3,24 @@
     public class LocationList
     {
 
-        public Guid Id { get; set; }
-        public string? Designation { get; set; }
+        public Guid id { get; set; }
+        public string? designation { get; set; }
 
-        public DateTime DateCreation { get; set; }
-        public string Societe { get; set; }
+        public DateTime dateCreation { get; set; }
+        public string societe { get; set; }
 
-        public string? DateCloture { get; set; }
+        public string? dateCloture { get; set; }
 
-        public bool Flag { get; set; }
+        public bool flag { get; set; }
 
-        public string? Addresse { get; set; }
+        public string? addresse { get; set; }
 
-        public string? NumeroAchat { get; set; }
+        public string? numeroAchat { get; set; }
 
-        public string? NumeroCommande { get; set; }
+        public string? numeroCommande { get; set; }
 
-        public string? NumeroFacture { get; set; }
+        public string? numeroFacture { get; set; }
 
-        public string? NumeroLivraison { get; set; }
+        public string? numeroLivraison { get; set; }
     }
 }

@@ -5,25 +5,25 @@ namespace ATD_API.Entities;
 
 public partial class DetailCommande
 {
-    public Guid Id { get; set; }
+    public Guid id { get; set; }
 
-    public Guid ArticleId { get; set; }
+    public Guid articleId { get; set; }
 
-    public string Article { get; set; }
+    public string article { get; set; }
 
-    public Guid CommandeId { get; set; }
+    public Guid commandeId { get; set; }
 
-    public string? Emballage { get; set; }
+    public string? emballage { get; set; }
 
-    public double Quantite { get; set; }
+    public double quantite { get; set; }
 
-    public double QuantiteLivree { get; set; }
+    public double quantiteLivree { get; set; }
 
-    public double ResteQuantite { get; set; }
+    public double resteQuantite { get; set; }
 
-    public double PrixUnit { get; set; }
+    public double prixUnit { get; set; }
 
-    public double PrixTotal { get; set; }
+    public double prixTotal { get; set; }
 
     //  public virtual Article Article { get; set; } = null!;
 

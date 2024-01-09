@@ -5,35 +5,40 @@ namespace ATD_API.Entities;
 
 public partial class Facture
 {
-    public Guid Id { get; set; }
+    public Guid id { get; set; }
 
-    public string? NumeroFacture { get; set; }
+    public string? periode { get; set; }
 
-    public Guid LocationId { get; set; }
+    public string? numeroFacture { get; set; }
 
-    public DateTime DateFacture { get; set; }
+    public Guid locationId { get; set; }
 
-    public string? Client { get; set; }
+    public Guid utilisateurId { get; set; }
 
-    public double Taux { get; set; }
+    public DateTime dateFacture { get; set; }
 
-    public double Remise { get; set; }
+    public string? client { get; set; }
 
-    public double TotalHt { get; set; }
 
-    public double MontantPayer { get; set; }
+    public double taux { get; set; }
 
-    public double ResteApayer { get; set; }
+    public double remise { get; set; }
 
-    public string? Monnaie { get; set; }
+    public double totalHt { get; set; }
 
-    public string? MontantLettre { get; set; }
+    public double montantPayer { get; set; }
 
-    public string? Paiement { get; set; }
+    public double resteApayer { get; set; }
 
-    public string Status { get; set; }
+    public string? monnaie { get; set; }
 
-    public virtual ICollection<DetailFacture> DetailFactures { get; set; } = new List<DetailFacture>();
+    public string? montantLettre { get; set; }
+
+    public string? paiement { get; set; }
+
+    public string status { get; set; }
+
+    public virtual ICollection<DetailFacture> detailFactures { get; set; } = new List<DetailFacture>();
 
     public virtual Location Location { get; set; } = null!;
 

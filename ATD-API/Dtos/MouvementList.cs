@@ -2,22 +2,22 @@
 {
     public class MouvementList
     {
-        public Guid Id { get; set; }
-        public string Type { get; set; }
-        public string Designation { get; set; }
+        public Guid id { get; set; }
+        public string type { get; set; }
+        public string designation { get; set; }
 
-        public Guid ArticleId { get; set; }
+        public Guid articleId { get; set; }
 
-        public string Article { get; set; }
+        public string article { get; set; }
 
-        public string Emballage { get; set; }
+        public string emballage { get; set; }
 
-        public Guid LocationId { get; set; }
+        public Guid locationId { get; set; }
 
-        public string Location { get; set; }
+        public string location { get; set; }
 
-        public double Quantite { get; set; }
+        public double quantite { get; set; }
 
-        public DateTime Created { get; set; }
+        public DateTime created { get; set; }
     }
 }

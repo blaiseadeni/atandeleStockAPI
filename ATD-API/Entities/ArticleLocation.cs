@@ -6,19 +6,19 @@ namespace ATD_API.Entities;
 
 public partial class ArticleLocation
 {
-    public Guid Id { get; set; }
+    public Guid id { get; set; }
 
-    public Guid ArticleId { get; set; }
+    public Guid articleId { get; set; }
 
-    public Guid LocationId { get; set; }
+    public Guid locationId { get; set; }
 
-    public Guid EmballageId { get; set; }
+    public Guid emballageId { get; set; }
 
-    public double Seuil { get; set; }
+    public double seuil { get; set; }
 
-    public double QteStock { get; set; }
+    public double qteStock { get; set; }
 
-    public int Status { get; set; }
+    public int status { get; set; }
 
     public virtual Article Article { get; set; } = null!;
 

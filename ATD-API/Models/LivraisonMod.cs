@@ -5,20 +5,23 @@ namespace ATD_API.Entities;
 
 public partial class LivraisonMod
 {
+    public Guid utilisateurId { get; set; }
 
-    public string? NumeroLivraison { get; set; }
+    public string? numeroLivraison { get; set; }
 
-    public string? NumeroCommande { get; set; }
+    public string? periode { get; set; }
 
-    public DateTime DateLivraison { get; set; }
+    public string? numeroCommande { get; set; }
 
-    public Guid FournisseurId { get; set; }
+    public DateTime dateLivraison { get; set; }
 
-    public string? Observation { get; set; }
+    public Guid fournisseurId { get; set; }
 
-    public Guid LocationId { get; set; }
+    public string? observation { get; set; }
 
-    public Guid MonnaieId { get; set; }
+    public Guid locationId { get; set; }
 
-    public virtual ICollection<DetailLivraison> DetailLivraisons { get; set; } = new List<DetailLivraison>();
+    public double totalLivraison { get; set; }
+
+    public virtual ICollection<DetailLivraison> detailLivraisons { get; set; } = new List<DetailLivraison>();
 }

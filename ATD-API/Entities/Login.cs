@@ -2,8 +2,10 @@
 {
     public class Login
     {
-        public Guid Id { get; set; }
-        public string User { get; set; }
-        public string Pwd { get; set; }
+        public Guid id { get; set; }
+        public string utilisateur { get; set; }
+        public string pwd { get; set; }
+        public Guid utilisateurId { get; set; }
+        public bool state { get; set; }
     }
 }

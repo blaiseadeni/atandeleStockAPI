@@ -6,10 +6,14 @@ namespace ATD_API.Entities;
 public partial class PaiementMod
 {
 
-    public Guid FactureId { get; set; }
+    public string periode { get; set; } = DateTime.Now.Month.ToString() + DateTime.Now.Year.ToString();
 
-    public DateTime DatePaiement { get; set; } = DateTime.Now;
+    public Guid factureId { get; set; }
 
-    public double MontantPayer { get; set; }
+    public DateTime datePaiement { get; set; } = DateTime.Now;
+
+    public double montantPayer { get; set; }
+
+    public Guid utilisateurId { get; set; }
 
 }

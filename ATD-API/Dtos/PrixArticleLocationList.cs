@@ -2,20 +2,20 @@
 {
     public class PrixArticleLocationList
     {
-        public Guid Id { get; set; }
+        public Guid id { get; set; }
 
-        public double PrixVenteDetail { get; set; }
+        public double prixVenteDetail { get; set; }
 
-        public double PrixVenteGros { get; set; }
+        public double prixVenteGros { get; set; }
 
-        public string? Monnaie { get; set; }
+        public string? monnaie { get; set; }
 
-        public Guid LocationId { get; set; }
+        public Guid locationId { get; set; }
 
-        public string Location { get; set; }
+        public string location { get; set; }
 
-        public Guid ArticleId { get; set; }
+        public Guid articleId { get; set; }
 
-        public string Article { get; set; }
+        public string article { get; set; }
     }
 }

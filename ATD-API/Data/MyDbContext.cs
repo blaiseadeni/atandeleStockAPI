@@ -74,5 +74,9 @@ namespace ATD_API.Data
 
         public virtual DbSet<Role> roles { get; set; }
 
+        public virtual DbSet<InvetaireComptable> inventaireComptables { get; set; }
+
+        public virtual DbSet<MouvementStock> mouvementStocks { get; set; }
+
     }
 }

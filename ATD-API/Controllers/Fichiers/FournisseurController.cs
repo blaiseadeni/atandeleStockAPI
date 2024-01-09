@@ -1,8 +1,10 @@
-﻿using ATD_API.Entities;
+﻿using ATD_API.Data;
+using ATD_API.Entities;
 using ATD_API.Repositories.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace ATD_API.Controllers.Fichiers
 {
@@ -12,11 +14,13 @@ namespace ATD_API.Controllers.Fichiers
     {
         private readonly IFournisseur _repository;
         private readonly IMapper _mapper;
+        private readonly MyDbContext _dbContext;
 
-        public FournisseurController(IFournisseur repository, IMapper mapper)
+        public FournisseurController(IFournisseur repository, IMapper mapper, MyDbContext myDbContext)
         {
             _repository = repository;
             _mapper = mapper;
+            _dbContext = myDbContext;
         }
 
         [HttpPost]
@@ -30,20 +34,34 @@ namespace ATD_API.Controllers.Fichiers
         public async Task<ActionResult<Fournisseur>> Update(Guid id, [FromBody] FournisseurMod request)
         {
             var query = await _repository.FindByIdAsync(id);
-            query.Adresse = request.Adresse;
-            query.Telephone = request.Telephone;
-            query.Nom = request.Nom;
-            query.Ville = request.Ville;
+            query.adresse = request.adresse;
+            query.telephone = request.telephone;
+            query.nom = request.nom;
+            query.ville = request.ville;
 
             var result = await _repository.UpdateAsync(query);
             return Ok("Updated successfully");
         }
 
-        [HttpGet]
-        public async Task<ActionResult<Fournisseur>> FindAll()
+        [HttpGet("all/{id:Guid}")]
+        public async Task<ActionResult<Fournisseur>> FindAll(Guid id)
         {
-            var items = await _repository.FindAllAsync();
-            return Ok(items);
+            var items = await (from x in _dbContext.fournisseurs
+                               join u in _dbContext.utilisateurs on x.utilisateurId equals u.id
+                               join l in _dbContext.locations on u.locationId equals id
+                               select new
+                               {
+                                   id = x.id,
+                                   utilisateurId = x.utilisateurId,
+                                   utilisateur = u.nom + " " + u.postnom,
+                                   nom = x.nom,
+                                   ville = x.ville,
+                                   adresse = x.adresse,
+                                   telephone = x.telephone,
+                                   created = x.created,
+
+                               }).ToListAsync();
+            return Ok(items.Distinct());
         }
 
         [HttpGet("{id:Guid}")]

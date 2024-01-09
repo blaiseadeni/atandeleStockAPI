@@ -6,28 +6,30 @@ namespace ATD_API.Entities;
 public partial class CommandeMod
 {
 
-    public string? NumeroCommande { get; set; }
+    public Guid utilisateurId { get; set; }
 
-    public DateTime DateCommande { get; set; }
+    public string periode { get; set; } = DateTime.Now.Month.ToString() + DateTime.Now.Year.ToString();
 
-    public DateTime DateLivraison { get; set; }
+    public string? numeroCommande { get; set; }
 
-    public string? Echeance { get; set; }
+    public DateTime dateCommande { get; set; }
 
-    public Guid FournisseurId { get; set; }
+    public DateTime dateLivraison { get; set; }
 
-    public string? Observation { get; set; }
+    //public string? echeance { get; set; }
 
-    public string? Concerne { get; set; }
+    public Guid fournisseurId { get; set; }
 
-    public double TotalCommande { get; set; }
+    //public string? observation { get; set; }
 
-    public Guid MonnaieId { get; set; }
+    //public string? concerne { get; set; }
 
-    public double TauxDeChange { get; set; }
+    public double totalCommande { get; set; }
 
-    public bool Status { get; set; } = false;
+    public double tauxDeChange { get; set; }
 
-    public virtual ICollection<DetailCommande> DetailCommandes { get; set; } = new List<DetailCommande>();
+    public bool status { get; set; } = false;
+
+    public virtual ICollection<DetailCommande> detailCommandes { get; set; } = new List<DetailCommande>();
 
 }

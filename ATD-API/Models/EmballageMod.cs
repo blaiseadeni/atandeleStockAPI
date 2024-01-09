@@ -6,7 +6,9 @@ namespace ATD_API.Entities;
 public partial class EmballageMod
 {
 
-    public string? Libelle { get; set; }
+    public string? libelle { get; set; }
 
-    public DateTime Created { get; set; } = DateTime.Now;
+    public Guid utilisateurId { get; set; }
+
+    public DateTime created { get; set; } = DateTime.Now;
 }

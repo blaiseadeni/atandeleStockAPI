@@ -1,8 +1,10 @@
-﻿using ATD_API.Entities;
+﻿using ATD_API.Data;
+using ATD_API.Entities;
 using ATD_API.Repositories.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace ATD_API.Controllers.Fichiers
 {
@@ -12,11 +14,13 @@ namespace ATD_API.Controllers.Fichiers
     {
         private readonly ICoursDeChange _repository;
         private readonly IMapper _mapper;
+        private readonly MyDbContext _dbContext;
 
-        public CoursDeChangeController(ICoursDeChange repository, IMapper mapper)
+        public CoursDeChangeController(ICoursDeChange repository, IMapper mapper, MyDbContext dbcontext)
         {
             _repository = repository;
             _mapper = mapper;
+            _dbContext = dbcontext;
         }
 
         [HttpPost]
@@ -30,10 +34,10 @@ namespace ATD_API.Controllers.Fichiers
         public async Task<ActionResult<CoursDeChange>> Update(Guid id, [FromBody] CoursDeChangeMod request)
         {
             var query = await _repository.FindByIdAsync(id);
-            query.DateEnCours = request.DateEnCours;
-            query.TauxVente = request.TauxVente;
-            query.Monnaie = request.Monnaie;
-            query.TauxVente = request.TauxVente;
+            query.dateEnCours = request.dateEnCours;
+            query.tauxVente = request.tauxVente;
+            query.monnaie = request.monnaie;
+            query.tauxVente = request.tauxVente;
 
             var result = await _repository.UpdateAsync(query);
             return Ok("Updated successfully");
@@ -42,7 +46,19 @@ namespace ATD_API.Controllers.Fichiers
         [HttpGet]
         public async Task<ActionResult<CoursDeChange>> FindAll()
         {
-            var items = await _repository.FindAllAsync();
+            var items = await (from x in _dbContext.coursDeChanges
+                               join u in _dbContext.utilisateurs on x.utilisateurId equals u.id
+                               select new
+                               {
+                                   id = x.id,
+                                   utilisateurId = x.utilisateurId,
+                                   dateEnCours = x.dateEnCours,
+                                   tauxAchat = x.tauxAchat,
+                                   tauxVente = x.tauxVente,
+                                   monnaie = x.monnaie,
+                                   utilisateur = u.nom + " " + u.postnom
+
+                               }).ToListAsync();
             return Ok(items);
         }
 

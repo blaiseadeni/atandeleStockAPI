@@ -5,13 +5,17 @@ namespace ATD_API.Entities;
 
 public partial class Paiement
 {
-    public Guid Id { get; set; }
+    public Guid id { get; set; }
 
-    public Guid FactureId { get; set; }
+    public string periode { get; set; }
 
-    public DateTime DatePaiement { get; set; }
+    public Guid factureId { get; set; }
 
-    public double MontantPayer { get; set; }
+    public Guid utilisateurId { get; set; }
+
+    public DateTime datePaiement { get; set; }
+
+    public double montantPayer { get; set; }
 
     public virtual Facture Facture { get; set; } = null!;
 }

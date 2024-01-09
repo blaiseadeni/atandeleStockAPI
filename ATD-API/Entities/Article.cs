@@ -6,31 +6,33 @@ namespace ATD_API.Entities;
 
 public partial class Article
 {
-    public Guid Id { get; set; }
+    public Guid id { get; set; }
 
-    public string? Code { get; set; }
+    public Guid utilisateurId { get; set; }
 
-    public string? Designation { get; set; }
+    public string? code { get; set; }
 
-    public Guid FamilleId { get; set; }
+    public string? designation { get; set; }
 
-    public Guid EmballageGrosId { get; set; }
+    public Guid familleId { get; set; }
 
-    public Guid EmballageDetailId { get; set; }
-    public int StockMinimal { get; set; }
+    public Guid emballageGrosId { get; set; }
 
-    public int QuantiteDetail { get; set; }
+    public Guid emballageDetailId { get; set; }
+    public int stockMinimal { get; set; }
 
-    public DateTime Created { get; set; }
+    public int quantiteDetail { get; set; }
+
+    public DateTime created { get; set; }
 
     [NotMapped]
-    public virtual ICollection<ArticleLocation> ArticleLocations { get; set; } = new List<ArticleLocation>();
+    public virtual ICollection<ArticleLocation> articleLocations { get; set; } = new List<ArticleLocation>();
 
-    public virtual ICollection<DetailAchat> DetailAchats { get; set; } = new List<DetailAchat>();
+    public virtual ICollection<DetailAchat> detailAchats { get; set; } = new List<DetailAchat>();
     [NotMapped]
-    public virtual ICollection<DetailCommande> DetailCommandes { get; set; } = new List<DetailCommande>();
+    public virtual ICollection<DetailCommande> detailCommandes { get; set; } = new List<DetailCommande>();
     [NotMapped]
-    public virtual ICollection<DetailFacture> DetailFactures { get; set; } = new List<DetailFacture>();
+    public virtual ICollection<DetailFacture> detailFactures { get; set; } = new List<DetailFacture>();
     //[NotMapped]
     //  public virtual Emballage EmballageDetail { get; set; } = null!;
     //[NotMapped]

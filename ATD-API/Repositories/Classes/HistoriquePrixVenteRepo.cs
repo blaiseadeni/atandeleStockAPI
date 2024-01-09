@@ -23,7 +23,7 @@ namespace ATD_API.Repositories.Classes
 
         public async Task<bool> DeleteAsync(Guid id)
         {
-            var result = _myDbContext.historiquePrixVentes.FirstOrDefault(a => a.Id == id);
+            var result = _myDbContext.historiquePrixVentes.FirstOrDefault(a => a.id == id);
             if (result != null)
             {
                 _myDbContext.historiquePrixVentes.Remove(result);
@@ -41,7 +41,7 @@ namespace ATD_API.Repositories.Classes
 
         public async Task<HistoriquePrixVente> FindByIdAsync(Guid id)
         {
-            var result = await _myDbContext.historiquePrixVentes.FirstOrDefaultAsync(c => c.Id == id);
+            var result = await _myDbContext.historiquePrixVentes.FirstOrDefaultAsync(c => c.id == id);
             return result;
         }
 

@@ -29,43 +29,57 @@ namespace ATD_API.Controllers.Traitements
         public async Task<ActionResult<Paiement>> Add([FromBody] PaiementMod request)
         {
             var result = await _repository.AddAsync(_mapper.Map<Paiement>(request));
-            var query = await _repositoryFacture.FindByIdAsync(result.FactureId);
-            if (query != null)
+
+            if (result != null)
             {
-                query.ResteApayer -= result.MontantPayer;
-                query.MontantPayer += result.MontantPayer;
+                var query = await _repositoryFacture.FindByIdAsync(result.factureId);
+                query.resteApayer -= result.montantPayer;
+                query.montantPayer += result.montantPayer;
+                if (query.resteApayer == 0)
+                {
+                    query.status = "PAYER";
+                }
+                else
+                {
+                    query.status = "NON PAYER";
+                }
+
+                await _repositoryFacture.UpdateAsync(query);
             }
-            await _repositoryFacture.UpdateAsync(query);
-            return Ok("Saved successfullly");
+
+            return Ok(result.id);
         }
 
         [HttpPut("{id}")]
         public async Task<ActionResult<Paiement>> Update(Guid id, [FromBody] PaiementMod request)
         {
             var query = await _repository.FindByIdAsync(id);
-            query.MontantPayer = request.MontantPayer;
-            query.DatePaiement = request.DatePaiement;
+            query.montantPayer = request.montantPayer;
+            query.datePaiement = request.datePaiement;
+            query.utilisateurId = request.utilisateurId;
 
             var result = await _repository.UpdateAsync(query);
             return Ok("Updated successfully");
         }
 
-        [HttpGet]
-        public async Task<ActionResult<Paiement>> FindAll()
+        [HttpGet("all/{id:Guid}")]
+        public async Task<ActionResult<Paiement>> FindAll(Guid id)
         {
             var items = await (from p in _myDbContext.paiements
-                               join f in _myDbContext.factures on p.FactureId equals f.Id
-
-
-                               select new PaiementList()
+                               join f in _myDbContext.factures on p.factureId equals f.id
+                               join u in _myDbContext.utilisateurs on p.utilisateurId equals u.id
+                               join l in _myDbContext.locations on u.locationId equals id
+                               select new
                                {
-                                   FactureId = p.FactureId,
-                                   numeroFacture = f.NumeroFacture,
-                                   DatePaiement = p.DatePaiement,
-                                   MontantPayer = p.MontantPayer
-
+                                   id = p.id,
+                                   factureId = p.factureId,
+                                   numeroFacture = f.numeroFacture,
+                                   datePaiement = p.datePaiement,
+                                   montantPayer = p.montantPayer,
+                                   utilisateurId = p.utilisateurId,
+                                   utilisateur = u.nom + " " + u.postnom
                                }).ToListAsync();
-            return Ok(items);
+            return Ok(items.Distinct());
         }
 
         [HttpGet("{id:Guid}")]

@@ -1,0 +1,61 @@
+{
+  "Files": [
+    {
+      "Id": "D:\\APS && ANGULAR\\Stock-Facturation\\ATD-API\\ATD-API\\wwwroot\\ReportBA.rdlc",
+      "PackagePath": "staticwebassets\\ReportBA.rdlc"
+    },
+    {
+      "Id": "D:\\APS && ANGULAR\\Stock-Facturation\\ATD-API\\ATD-API\\wwwroot\\ReportBC.rdlc",
+      "PackagePath": "staticwebassets\\ReportBC.rdlc"
+    },
+    {
+      "Id": "D:\\APS && ANGULAR\\Stock-Facturation\\ATD-API\\ATD-API\\wwwroot\\ReportBL.rdlc",
+      "PackagePath": "staticwebassets\\ReportBL.rdlc"
+    },
+    {
+      "Id": "D:\\APS && ANGULAR\\Stock-Facturation\\ATD-API\\ATD-API\\wwwroot\\ReportFIS.rdlc",
+      "PackagePath": "staticwebassets\\ReportFIS.rdlc"
+    },
+    {
+      "Id": "D:\\APS && ANGULAR\\Stock-Facturation\\ATD-API\\ATD-API\\wwwroot\\ReportFS1.rdlc",
+      "PackagePath": "staticwebassets\\ReportFS1.rdlc"
+    },
+    {
+      "Id": "D:\\APS && ANGULAR\\Stock-Facturation\\ATD-API\\ATD-API\\wwwroot\\ReportFacture.rdlc",
+      "PackagePath": "staticwebassets\\ReportFacture.rdlc"
+    },
+    {
+      "Id": "D:\\APS && ANGULAR\\Stock-Facturation\\ATD-API\\ATD-API\\wwwroot\\ReportFacturePOS.rdlc",
+      "PackagePath": "staticwebassets\\ReportFacturePOS.rdlc"
+    },
+    {
+      "Id": "D:\\APS && ANGULAR\\Stock-Facturation\\ATD-API\\ATD-API\\wwwroot\\ReportRecuPaiePOS.rdlc",
+      "PackagePath": "staticwebassets\\ReportRecuPaiePOS.rdlc"
+    },
+    {
+      "Id": "D:\\APS && ANGULAR\\Stock-Facturation\\ATD-API\\ATD-API\\wwwroot\\ReportResultat.rdlc",
+      "PackagePath": "staticwebassets\\ReportResultat.rdlc"
+    },
+    {
+      "Id": "D:\\APS && ANGULAR\\Stock-Facturation\\ATD-API\\ATD-API\\wwwroot\\ReportVente.rdlc",
+      "PackagePath": "staticwebassets\\ReportVente.rdlc"
+    },
+    {
+      "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.ATD-API.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.build.ATD-API.props",
+      "PackagePath": "build\\ATD-API.props"
+    },
+    {
+      "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.buildMultiTargeting.ATD-API.props",
+      "PackagePath": "buildMultiTargeting\\ATD-API.props"
+    },
+    {
+      "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.buildTransitive.ATD-API.props",
+      "PackagePath": "buildTransitive\\ATD-API.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

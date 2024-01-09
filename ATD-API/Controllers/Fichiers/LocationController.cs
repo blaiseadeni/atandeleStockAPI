@@ -35,16 +35,16 @@ namespace ATD_API.Controllers.Fichiers
         public async Task<ActionResult<Location>> Update(Guid id, [FromBody] LocationMod request)
         {
             var query = await _repository.FindByIdAsync(id);
-            query.Designation = request.Designation;
-            query.DateCreation = request.DateCreation;
+            query.designation = request.designation;
+            query.dateCreation = request.dateCreation;
             // query.DateCloture = request.DateCloture;
-            query.NumeroFacture = request.NumeroFacture;
-            query.NumeroLivraison = request.NumeroLivraison;
-            query.Addresse = request.Addresse;
-            query.NumeroAchat = request.NumeroAchat;
-            query.Flag = request.Flag;
-            query.NumeroCommande = request.NumeroCommande;
-            query.SocieteId = request.SocieteId;
+            query.numeroFacture = request.numeroFacture;
+            query.numeroLivraison = request.numeroLivraison;
+            query.addresse = request.addresse;
+            query.numeroAchat = request.numeroAchat;
+            query.flag = request.flag;
+            query.numeroCommande = request.numeroCommande;
+            query.societeId = request.societeId;
 
             var result = await _repository.UpdateAsync(query);
             return Ok("Updated successfully");
@@ -54,21 +54,21 @@ namespace ATD_API.Controllers.Fichiers
         public async Task<ActionResult<Location>> FindAll()
         {
             var items = await (from l in _myDbContext.locations
-                               join s in _myDbContext.parametreSocietes on l.SocieteId equals s.Id
+                               join s in _myDbContext.parametreSocietes on l.societeId equals s.id
                                select new LocationList()
                                {
 
-                                   Id = l.Id,
-                                   Designation = l.Designation,
-                                   DateCreation = l.DateCreation,
-                                   Societe = s.Denomination,
-                                   DateCloture = l.DateCloture,
-                                   Flag = l.Flag,
-                                   Addresse = l.Addresse,
-                                   NumeroAchat = l.NumeroAchat,
-                                   NumeroCommande = l.NumeroCommande,
-                                   NumeroFacture = l.NumeroFacture,
-                                   NumeroLivraison = l.NumeroLivraison
+                                   id = l.id,
+                                   designation = l.designation,
+                                   dateCreation = l.dateCreation,
+                                   societe = s.denomination,
+                                   dateCloture = l.dateCloture,
+                                   flag = l.flag,
+                                   addresse = l.addresse,
+                                   numeroAchat = l.numeroAchat,
+                                   numeroCommande = l.numeroCommande,
+                                   numeroFacture = l.numeroFacture,
+                                   numeroLivraison = l.numeroLivraison
 
                                }).ToListAsync();
             return Ok(items);

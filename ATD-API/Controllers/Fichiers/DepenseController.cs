@@ -1,10 +1,12 @@
 ﻿using ATD_API.Data;
+using ATD_API.Dtos;
 using ATD_API.Entities;
 using ATD_API.Models;
 using ATD_API.Repositories.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace ATD_API.Controllers.Fichiers
 {
@@ -30,23 +32,73 @@ namespace ATD_API.Controllers.Fichiers
             return Ok("Saved successfullly");
         }
 
+        [HttpPost("verify")]
+        public async Task<ActionResult> Verify(VerifyRequest request)
+        {
+            var items = (from x in _myDbContext.depenses
+                         join u in _myDbContext.utilisateurs on x.utilisateurId equals u.id
+                         join l in _myDbContext.locations on u.locationId equals l.id
+                         where l.id == request.locationId
+                         select new
+                         {
+                             id = x.id,
+                             utilisateur = u.nom + " " + u.postnom,
+                             utilisateurId = x.utilisateurId,
+                             motif = x.motif,
+                             montant = x.montant,
+                             beneficiaire = x.beneficiaire,
+                             created = x.created
+
+                         })
+                            .Where(c => (c.created >= DateTime.Parse(request.date1) && c.created <= DateTime.Parse(request.date2)))
+                .GroupBy(x => x.created)
+                .Select(group => new
+                {
+                    Created = group.Key,
+                    montant = group.Sum(c => c.montant),
+                })
+                .OrderBy(dc => dc.montant)
+                .ToList();
+
+            montantDto montant = new montantDto();
+            foreach (var item in items)
+            {
+                montant.montant += item.montant;
+            }
+
+            return Ok(montant);
+        }
+
+
         [HttpPut("{id}")]
         public async Task<ActionResult<Depense>> Update(Guid id, [FromBody] DepenseMod request)
         {
             var query = await _repository.FindByIdAsync(id);
-            query.Montant = request.Montant;
-            query.Beneficiaire = request.Beneficiaire;
-            query.Motif = request.Motif;
+            query.montant = request.montant;
+            query.beneficiaire = request.beneficiaire;
+            query.motif = request.motif;
 
             var result = await _repository.UpdateAsync(query);
             return Ok("Updated successfully");
         }
 
-        [HttpGet]
-        public async Task<ActionResult<Depense>> FindAll()
+        [HttpGet("all/{id:Guid}")]
+        public async Task<ActionResult<Depense>> FindAll(Guid id)
         {
-            var items = await _repository.FindAllAsync();
-            return Ok(items);
+            var items = await (from x in _myDbContext.depenses
+                               join u in _myDbContext.utilisateurs on x.utilisateurId equals u.id
+                               join l in _myDbContext.locations on u.locationId equals id
+                               select new
+                               {
+                                   id = x.id,
+                                   utilisateur = u.nom + " " + u.postnom,
+                                   utilisateurId = x.utilisateurId,
+                                   motif = x.motif,
+                                   montant = x.montant,
+                                   beneficiaire = x.beneficiaire,
+                                   created = x.created
+                               }).ToListAsync();
+            return Ok(items.Distinct());
         }
 
         [HttpGet("{id:Guid}")]

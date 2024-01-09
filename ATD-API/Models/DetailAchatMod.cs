@@ -6,17 +6,18 @@ namespace ATD_API.Entities;
 public partial class DetailAchatMod
 {
 
-    public Guid ArticleId { get; set; }
-    public string Article { get; set; }
+    public Guid articleId { get; set; }
 
-    public Guid AchatId { get; set; }
+    public string article { get; set; }
 
-    public string? Emballage { get; set; }
+    public Guid achatId { get; set; }
 
-    public double Quantite { get; set; }
+    public string? emballage { get; set; }
 
-    public double PrixUnit { get; set; }
+    public double quantite { get; set; }
 
-    public double PrixTotal { get; set; }
+    public double prixUnit { get; set; }
+
+    public double prixTotal { get; set; }
 
 }

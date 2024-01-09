@@ -23,7 +23,7 @@ namespace ATD_API.Repositories.Classes
 
         public async Task<bool> DeleteAsync(Guid id)
         {
-            var result = _myDbContext.portefeuilles.FirstOrDefault(a => a.Id == id);
+            var result = _myDbContext.portefeuilles.FirstOrDefault(a => a.id == id);
             if (result != null)
             {
                 _myDbContext.portefeuilles.Remove(result);

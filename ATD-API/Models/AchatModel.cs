@@ -4,22 +4,24 @@ namespace ATD_API.Models
 {
     public class AchatModel
     {
-        public DateTime DateAchat { get; set; }
 
-        public string? NumeroFacture { get; set; }
+        public string periode { get; set; }
+        public DateTime dateAchat { get; set; }
 
-        public Guid MonnaieId { get; set; }
+        public string? numeroFacture { get; set; }
 
-        public Guid LocationId { get; set; }
+        public Guid utilisateurId { get; set; }
 
-        public Guid FournisseurId { get; set; }
+        public Guid locationId { get; set; }
 
-        public double TauxAchat { get; set; }
+        public Guid fournisseurId { get; set; }
 
-        public double MontantTotal { get; set; }
+        public double tauxAchat { get; set; } = 1;
 
-        public string? NumeroAchat { get; set; }
+        public double montantTotal { get; set; }
 
-        public virtual ICollection<DetailAchat> DetailAchats { get; set; } = new List<DetailAchat>();
+        public string? numeroAchat { get; set; }
+
+        public virtual ICollection<DetailAchat> detailAchats { get; set; } = new List<DetailAchat>();
     }
 }

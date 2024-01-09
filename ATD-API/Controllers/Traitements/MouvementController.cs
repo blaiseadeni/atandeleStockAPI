@@ -23,28 +23,32 @@ namespace ATD_API.Controllers.Traitements
             _myDbContext = myDbContext;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<Mouvement>> FindAll()
+
+        [HttpGet("all/{id:Guid}")]
+        public async Task<ActionResult<Mouvement>> FindAll(Guid id)
         {
-            var items = await (from m in _myDbContext.mouvements
-                               join l in _myDbContext.locations on m.LocationId equals l.Id
+            var items = await (from m in _myDbContext.mouvementStocks
+                               join l in _myDbContext.locations on m.locationId equals id
 
-                               select new MouvementList()
+                               select new
                                {
-
-                                   Id = m.Id,
-                                   Type = m.Type,
-                                   Designation = m.Designation,
-                                   ArticleId = m.ArticleId,
-                                   Article = m.Article,
-                                   LocationId = m.LocationId,
-                                   Location = l.Designation,
-                                   Quantite = m.Quantite,
-                                   Created = m.Created,
-                                   Emballage = m.Emballage
+                                   id = m.id,
+                                   articleId = m.articleId,
+                                   locationId = m.locationId,
+                                   periode = m.periode,
+                                   article = m.article,
+                                   libelle = m.libelle,
+                                   date = m.date,
+                                   qteEntr = m.qteEntr,
+                                   puEntr = m.puEntr,
+                                   ptEnt = m.ptEnt,
+                                   qteSort = m.qteSort,
+                                   puSort = m.puSort,
+                                   ptSort = m.ptSort,
+                                   qteSt = m.qteSt
 
                                }).ToListAsync();
-            return Ok(items);
+            return Ok(items.DistinctBy(c => c.id));
         }
     }
 }

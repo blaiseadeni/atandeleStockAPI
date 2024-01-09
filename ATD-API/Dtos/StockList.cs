@@ -2,12 +2,12 @@
 {
     public class StockList
     {
-        public Guid Id { get; set; }
-        public Guid ArticleId { get; set; }
-        public string Article { get; set; }
-        public Guid LocationId { get; set; }
-        public string Location { get; set; }
-        public double Quantite { get; set; }
-        public double Seuil { get; set; }
+        public Guid id { get; set; }
+        public Guid articleId { get; set; }
+        public string article { get; set; }
+        public Guid locationId { get; set; }
+        public string location { get; set; }
+        public double quantite { get; set; }
+        public double seuil { get; set; }
     }
 }

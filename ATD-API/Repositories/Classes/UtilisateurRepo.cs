@@ -23,7 +23,7 @@ namespace ATD_API.Repositories.Classes
 
         public async Task<bool> DeleteAsync(Guid id)
         {
-            var result = _myDbContext.utilisateurs.FirstOrDefault(a => a.Id == id);
+            var result = _myDbContext.utilisateurs.FirstOrDefault(a => a.id == id);
             if (result != null)
             {
                 _myDbContext.utilisateurs.Remove(result);
@@ -41,7 +41,7 @@ namespace ATD_API.Repositories.Classes
 
         public async Task<Utilisateur> FindByIdAsync(Guid id)
         {
-            var result = await _myDbContext.utilisateurs.FirstOrDefaultAsync(c => c.Id == id);
+            var result = await _myDbContext.utilisateurs.FirstOrDefaultAsync(c => c.id == id);
             return result;
         }
 

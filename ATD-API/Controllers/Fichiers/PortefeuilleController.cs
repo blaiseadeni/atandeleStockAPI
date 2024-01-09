@@ -43,24 +43,28 @@ namespace ATD_API.Controllers.Fichiers
             return Ok("Updated successfully");
         }
 
-        [HttpGet]
-        public async Task<ActionResult<Portefeuille>> FindAll()
+        [HttpGet("all/{id:Guid}")]
+        public async Task<ActionResult<Portefeuille>> FindAll(Guid id)
         {
             var items = await (from p in _myDbContext.portefeuilles
-                               join s in _myDbContext.signaletiques on p.clientId equals s.Id
-                               join m in _myDbContext.monnaies on p.monnaieId equals m.Id
-                               select new PortefeuilleList()
+                               join s in _myDbContext.signaletiques on p.clientId equals s.id
+                               //join m in _myDbContext.monnaies on p.monnaieId equals m.id
+                               join u in _myDbContext.utilisateurs on p.utilisateurId equals u.id
+                               join l in _myDbContext.locations on u.locationId equals id
+                               select new
                                {
-                                   Id = p.Id,
+                                   id = p.id,
                                    clientId = p.clientId,
-                                   client = s.Nom,
-                                   monnaieId = p.monnaieId,
-                                   monnaie = m.Devise,
+                                   client = s.nom,
+                                   //monnaieId = p.monnaieId,
+                                   //monnaie = m.devise,
                                    montant = p.montant,
-                                   created = p.created
+                                   created = p.created,
+                                   utilisateurId = p.utilisateurId,
+                                   utilisateur = u.nom + " " + u.postnom
 
                                }).ToListAsync();
-            return Ok(items);
+            return Ok(items.Distinct());
         }
 
         [HttpGet("{id:Guid}")]
@@ -69,18 +73,21 @@ namespace ATD_API.Controllers.Fichiers
             //  var result = await _repository.FindByIdAsync(id);
             //  return Ok(result);
             var items = await (from p in _myDbContext.portefeuilles
-                               join s in _myDbContext.signaletiques on p.clientId equals s.Id
-                               join m in _myDbContext.monnaies on p.monnaieId equals m.Id
+                               join s in _myDbContext.signaletiques on p.clientId equals s.id
+                               //join m in _myDbContext.monnaies on p.monnaieId equals m.id
+                               join u in _myDbContext.utilisateurs on p.utilisateurId equals u.id
                                where p.clientId == id
-                               select new PortefeuilleList()
+                               select new
                                {
-                                   Id = p.Id,
+                                   id = p.id,
                                    clientId = p.clientId,
-                                   client = s.Nom,
-                                   monnaieId = p.monnaieId,
-                                   monnaie = m.Devise,
+                                   client = s.nom,
+                                   //monnaieId = p.monnaieId,
+                                   //monnaie = m.devise,
                                    montant = p.montant,
-                                   created = p.created
+                                   created = p.created,
+                                   utilisateurId = p.utilisateurId,
+                                   utilisateur = u.nom + " " + u.postnom
 
                                }).FirstOrDefaultAsync();
             return Ok(items);

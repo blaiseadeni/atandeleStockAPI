@@ -6,11 +6,14 @@ namespace ATD_API.Entities;
 public partial class CoursDeChangeMod
 {
 
-    public DateTime DateEnCours { get; set; }
+    public DateTime dateEnCours { get; set; }
 
-    public double TauxAchat { get; set; }
+    public double tauxAchat { get; set; }
 
-    public double TauxVente { get; set; }
+    public double tauxVente { get; set; }
 
-    public string? Monnaie { get; set; }
+    public string? monnaie { get; set; }
+
+    public Guid utilisateurId { get; set; }
+
 }

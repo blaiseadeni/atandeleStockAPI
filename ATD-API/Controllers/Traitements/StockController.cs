@@ -22,26 +22,25 @@ namespace ATD_API.Controllers.Traitements
             _repository = repository;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<Stock>> FindAll()
+        [HttpGet("all/{id:Guid}")]
+        public async Task<ActionResult<Stock>> FindAll(Guid id)
         {
             var items = await (from s in _myDbContext.article_stocks
-                               join l in _myDbContext.locations on s.LocationId equals l.Id
-                               join a in _myDbContext.articles on s.ArticleId equals a.Id
-
+                               join l in _myDbContext.locations on s.locationId equals id
+                               join a in _myDbContext.articles on s.articleId equals a.id
                                select new StockList()
                                {
 
-                                   Id = s.Id,
-                                   ArticleId = s.ArticleId,
-                                   Article = a.Designation,
-                                   LocationId = s.LocationId,
-                                   Location = l.Designation,
-                                   Quantite = s.Quantite,
-                                   Seuil = a.StockMinimal
+                                   id = s.id,
+                                   articleId = s.articleId,
+                                   article = a.designation,
+                                   locationId = s.locationId,
+                                   location = l.designation,
+                                   quantite = s.quantite,
+                                   seuil = a.stockMinimal
 
                                }).ToListAsync();
-            return Ok(items);
+            return Ok(items.DistinctBy(s => s.id));
         }
 
         [HttpGet("{id:Guid}")]

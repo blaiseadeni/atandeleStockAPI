@@ -32,112 +32,138 @@ namespace ATD_API.Controllers.Traitements
         [HttpPost]
         public async Task<ActionResult<Livraison>> Add([FromBody] LivraisonMod request)
         {
+            Random random = new Random();
+            int num = random.Next();
+            request.numeroLivraison = DateTime.Now.Year.ToString() + DateTime.Now.Month + num;
+            request.periode = DateTime.Now.Month.ToString() + DateTime.Now.Year;
+
             var result = await _repository.AddAsync(_mapper.Map<Livraison>(request));
-            var query = await _myDbContext.commandes.Include(d => d.DetailCommandes).FirstOrDefaultAsync(c => c.NumeroCommande == result.NumeroCommande);
+            var query = await _myDbContext.commandes.Include(d => d.detailCommandes).FirstOrDefaultAsync(c => c.numeroCommande == result.numeroCommande);
             StockMod stock = new StockMod();
+
             //modification de la table commande
-            foreach (var item in query.DetailCommandes)
+            foreach (var item in query.detailCommandes)
             {
-                foreach (var item1 in result.DetailLivraisons)
+                foreach (var item1 in result.detailLivraisons)
                 {
-                    item.QuantiteLivree += item1.Quantite;
-                    item.ResteQuantite = item.Quantite - item.QuantiteLivree;
+                    item.quantiteLivree += item1.quantite;
+                    item.resteQuantite = item.quantite - item.quantiteLivree;
                 }
                 _myDbContext.detailCommandes.Update(item);
             }
 
             //Ajout dans la table mouvement
-            MouvementMod mouvement = new MouvementMod();
-            foreach (var item in result.DetailLivraisons)
+            MouvementStock mouvement = new MouvementStock();
+            foreach (var item in result.detailLivraisons)
             {
-                mouvement.ArticleId = item.ArticleId;
-                mouvement.Article = item.Article;
-                mouvement.LocationId = result.LocationId;
-                mouvement.Quantite = item.Quantite;
-                mouvement.Type = "ENTRE";
-                mouvement.Designation = "LIVRAISON";
-                mouvement.Emballage = item.Emballage;
-                //ajout dans le stock
-                var req = await _myDbContext.article_stocks.FirstOrDefaultAsync(s => s.ArticleId == item.ArticleId);
 
-                var article = await _myDbContext.articles.FirstOrDefaultAsync(a => a.Id == item.ArticleId);
-                var emballage = await _myDbContext.emballageByArticles.FirstOrDefaultAsync(a => a.ArticleId == item.ArticleId);
+                //ajout dans le stock
+                var req = await _myDbContext.article_stocks.FirstOrDefaultAsync(s => s.articleId == item.articleId);
+
+                var article = await _myDbContext.articles.FirstOrDefaultAsync(a => a.id == item.articleId);
+                var emballage = await _myDbContext.emballageByArticles.FirstOrDefaultAsync(a => a.articleId == item.articleId);
+
+                mouvement.articleId = item.articleId;
+                mouvement.article = item.article;
+                mouvement.locationId = result.locationId;
+                mouvement.puEntr = item.prixUnit;
+                mouvement.periode = result.periode;
+                mouvement.date = DateTime.Now;
+                mouvement.libelle = "Entrées";
+                if (item.emballage == emballage.emballageGros)
+                {
+                    mouvement.qteEntr = item.quantite * article.quantiteDetail;
+
+                }
+                else
+                {
+                    mouvement.qteEntr = item.quantite;
+                }
+                //mouvement.type = "ENTRE";
+                mouvement.ptEnt = mouvement.qteEntr * item.prixUnit;
+                mouvement.qteSt = req.quantite + mouvement.qteEntr;
+                //  mouvement.emballage = emballage.emballageDetail;
+
                 if (req == null)
                 {
-                    stock.LocationId = result.LocationId;
-                    stock.ArticleId = item.ArticleId;
-                    if (emballage.EmballageGros != null && emballage.EmballageGros == item.Emballage)
+                    stock.locationId = result.locationId;
+                    stock.articleId = item.articleId;
+                    if (emballage.emballageGros != null && emballage.emballageGros == item.emballage)
                     {
-                        stock.Quantite += item.Quantite * article.QuantiteDetail;
+                        stock.quantite += item.quantite * article.quantiteDetail;
                     }
                     else
                     {
-                        stock.Quantite += item.Quantite;
+                        stock.quantite += item.quantite;
                     }
                     await _stockRepository.AddAsync(_mapper.Map<Stock>(stock));
                 }
                 else
                 {
-                    if (emballage.EmballageGros == item.Emballage)
+                    if (emballage.emballageGros == item.emballage)
                     {
-                        req.Quantite += item.Quantite * article.QuantiteDetail;
+                        req.quantite += item.quantite * article.quantiteDetail;
                     }
                     else
                     {
-                        req.Quantite += item.Quantite;
+                        req.quantite += item.quantite;
                     }
                     await _stockRepository.UpdateAsync(_mapper.Map<Stock>(req));
 
                 }
-                var res = await _mouvementRepository.AddAsync(_mapper.Map<Mouvement>(mouvement));
+
+                var res = _myDbContext.mouvementStocks.Add(mouvement);
+                await _myDbContext.SaveChangesAsync();
+                // var res = await _mouvementRepository.AddAsync(_mapper.Map<Mouvement>(mouvement));
             }
 
             await _myDbContext.SaveChangesAsync();
-            return Ok("Saved successfullly");
+            return result;
         }
 
         [HttpPut("{id}")]
         public async Task<ActionResult<Livraison>> Update(Guid id, [FromBody] LivraisonMod request)
         {
             var query = await _repository.FindByIdAsync(id);
-            query.Observation = request.Observation;
-            query.LocationId = request.LocationId;
-            query.FournisseurId = request.FournisseurId;
-            query.DateLivraison = request.DateLivraison;
-            query.MonnaieId = request.MonnaieId;
-            query.NumeroCommande = request.NumeroCommande;
-            query.DetailLivraisons = request.DetailLivraisons;
+            query.observation = request.observation;
+            query.locationId = request.locationId;
+            query.fournisseurId = request.fournisseurId;
+            query.dateLivraison = request.dateLivraison;
+            query.numeroCommande = request.numeroCommande;
+            query.totalLivraison = request.totalLivraison;
+            query.detailLivraisons = request.detailLivraisons;
 
             var result = await _repository.UpdateAsync(query);
             return Ok("Updated successfully");
         }
 
-        [HttpGet]
-        public async Task<ActionResult<Livraison>> FindAll()
+        [HttpGet("all/{id:Guid}")]
+        public async Task<ActionResult<Livraison>> FindAll(Guid id)
         {
-            var items = await (from li in _myDbContext.livraisons.Include(d => d.DetailLivraisons)
-                               join lo in _myDbContext.locations on li.LocationId equals lo.Id
-                               join f in _myDbContext.fournisseurs on li.FournisseurId equals f.Id
-                               join m in _myDbContext.monnaies on li.MonnaieId equals m.Id
-
-                               select new LivraisonList()
+            var items = await (from li in _myDbContext.livraisons.Include(d => d.detailLivraisons)
+                               join lo in _myDbContext.locations on li.locationId equals lo.id
+                               join f in _myDbContext.fournisseurs on li.fournisseurId equals f.id
+                               join u in _myDbContext.utilisateurs on li.utilisateurId equals u.id
+                               join l in _myDbContext.locations on u.locationId equals id
+                               select new
                                {
 
-                                   Id = li.Id,
-                                   NumeroLivraison = li.NumeroLivraison,
-                                   NumeroCommande = li.NumeroCommande,
-                                   DateLivraison = li.DateLivraison,
-                                   FournisseurId = li.FournisseurId,
-                                   Fournisseur = f.Nom,
-                                   Observation = li.Observation,
-                                   LocationId = li.LocationId,
-                                   Location = lo.Designation,
-                                   MonnaieId = li.MonnaieId,
-                                   Monnaie = m.Devise,
-                                   DetailLivraisons = li.DetailLivraisons
+                                   id = li.id,
+                                   numeroLivraison = li.numeroLivraison,
+                                   numeroCommande = li.numeroCommande,
+                                   dateLivraison = li.dateLivraison,
+                                   fournisseurId = li.fournisseurId,
+                                   fournisseur = f.nom,
+                                   observation = li.observation,
+                                   locationId = li.locationId,
+                                   location = lo.designation,
+                                   utilisateurId = li.utilisateurId,
+                                   utilisateur = u.nom + " " + u.postnom,
+                                   totalLivraison = li.totalLivraison,
+                                   detailLivraisons = li.detailLivraisons
 
                                }).ToListAsync();
-            return Ok(items);
+            return Ok(items.DistinctBy(c => c.id));
         }
 
         [HttpGet("{id:Guid}")]

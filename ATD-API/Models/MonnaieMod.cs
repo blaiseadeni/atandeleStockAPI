@@ -6,12 +6,14 @@ namespace ATD_API.Entities;
 public partial class MonnaieMod
 {
 
-    public string? Devise { get; set; }
+    public string? devise { get; set; }
 
-    public string? Libelle { get; set; }
+    public Guid utilisateurId { get; set; }
+
+    public string? libelle { get; set; }
 
     public bool estLocal { get; set; } = false;
 
-    public DateTime Created { get; set; } = DateTime.Now;
+    public DateTime created { get; set; } = DateTime.Now;
 
 }

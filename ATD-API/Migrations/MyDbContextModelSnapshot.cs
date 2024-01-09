@@ -24,840 +24,992 @@ namespace ATD_API.Migrations
 
             modelBuilder.Entity("ATD_API.Entities.Achat", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("DateAchat")
+                    b.Property<DateTime>("dateAchat")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("FournisseurId")
+                    b.Property<Guid>("fournisseurId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("LocationId")
+                    b.Property<Guid>("locationId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("MonnaieId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<double>("MontantTotal")
+                    b.Property<double>("montantTotal")
                         .HasColumnType("float");
 
-                    b.Property<string>("NumeroAchat")
+                    b.Property<string>("numeroAchat")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("NumeroFacture")
+                    b.Property<string>("numeroFacture")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("TauxAchat")
+                    b.Property<string>("periode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("tauxAchat")
                         .HasColumnType("float");
 
-                    b.HasKey("Id");
+                    b.Property<Guid>("utilisateurId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.HasIndex("FournisseurId");
+                    b.HasKey("id");
 
-                    b.HasIndex("LocationId");
+                    b.HasIndex("fournisseurId");
 
-                    b.HasIndex("MonnaieId");
+                    b.HasIndex("locationId");
 
                     b.ToTable("achats");
                 });
 
             modelBuilder.Entity("ATD_API.Entities.Article", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Code")
+                    b.Property<string>("code")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("Created")
+                    b.Property<DateTime>("created")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Designation")
+                    b.Property<string>("designation")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("EmballageDetailId")
+                    b.Property<Guid>("emballageDetailId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("EmballageGrosId")
+                    b.Property<Guid>("emballageGrosId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("FamilleId")
+                    b.Property<Guid>("familleId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("QuantiteDetail")
+                    b.Property<int>("quantiteDetail")
                         .HasColumnType("int");
 
-                    b.Property<int>("StockMinimal")
+                    b.Property<int>("stockMinimal")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.Property<Guid>("utilisateurId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.HasIndex("FamilleId");
+                    b.HasKey("id");
+
+                    b.HasIndex("familleId");
 
                     b.ToTable("articles");
                 });
 
             modelBuilder.Entity("ATD_API.Entities.ArticleLocation", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("ArticleId")
+                    b.Property<Guid>("articleId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("EmballageId")
+                    b.Property<Guid>("emballageId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("LocationId")
+                    b.Property<Guid>("locationId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<double>("QteStock")
+                    b.Property<double>("qteStock")
                         .HasColumnType("float");
 
-                    b.Property<double>("Seuil")
+                    b.Property<double>("seuil")
                         .HasColumnType("float");
 
-                    b.Property<int>("Status")
+                    b.Property<int>("status")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("id");
 
-                    b.HasIndex("ArticleId");
+                    b.HasIndex("articleId");
 
-                    b.HasIndex("EmballageId");
+                    b.HasIndex("emballageId");
 
-                    b.HasIndex("LocationId");
+                    b.HasIndex("locationId");
 
                     b.ToTable("articleLocations");
                 });
 
             modelBuilder.Entity("ATD_API.Entities.Commande", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Concerne")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("DateCommande")
+                    b.Property<DateTime>("dateCommande")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DateLivraison")
+                    b.Property<DateTime>("dateLivraison")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Echeance")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("FournisseurId")
+                    b.Property<Guid>("fournisseurId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("MonnaieId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("NumeroCommande")
+                    b.Property<string>("numeroCommande")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Observation")
+                    b.Property<string>("periode")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("Status")
+                    b.Property<bool>("status")
                         .HasColumnType("bit");
 
-                    b.Property<double>("TauxDeChange")
+                    b.Property<double>("tauxDeChange")
                         .HasColumnType("float");
 
-                    b.Property<double>("TotalCommande")
+                    b.Property<double>("totalCommande")
                         .HasColumnType("float");
 
-                    b.HasKey("Id");
+                    b.Property<Guid>("utilisateurId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.HasIndex("FournisseurId");
+                    b.HasKey("id");
 
-                    b.HasIndex("MonnaieId");
+                    b.HasIndex("fournisseurId");
 
                     b.ToTable("commandes");
                 });
 
             modelBuilder.Entity("ATD_API.Entities.CoursDeChange", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("DateEnCours")
+                    b.Property<DateTime>("dateEnCours")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Monnaie")
+                    b.Property<string>("monnaie")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("TauxAchat")
+                    b.Property<double>("tauxAchat")
                         .HasColumnType("float");
 
-                    b.Property<double>("TauxVente")
+                    b.Property<double>("tauxVente")
                         .HasColumnType("float");
 
-                    b.HasKey("Id");
+                    b.Property<Guid>("utilisateurId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("id");
 
                     b.ToTable("coursDeChanges");
                 });
 
             modelBuilder.Entity("ATD_API.Entities.Depense", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Beneficiaire")
+                    b.Property<string>("beneficiaire")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("Created")
+                    b.Property<DateTime>("created")
                         .HasColumnType("datetime2");
 
-                    b.Property<double>("Montant")
+                    b.Property<double>("montant")
                         .HasColumnType("float");
 
-                    b.Property<string>("Motif")
+                    b.Property<string>("motif")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.Property<string>("periode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("utilisateurId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("id");
 
                     b.ToTable("depenses");
                 });
 
             modelBuilder.Entity("ATD_API.Entities.DetailAchat", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("AchatId")
+                    b.Property<Guid>("achatId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Article")
+                    b.Property<string>("article")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("ArticleId")
+                    b.Property<Guid>("articleId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Emballage")
+                    b.Property<string>("emballage")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("PrixTotal")
+                    b.Property<double>("prixTotal")
                         .HasColumnType("float");
 
-                    b.Property<double>("PrixUnit")
+                    b.Property<double>("prixUnit")
                         .HasColumnType("float");
 
-                    b.Property<double>("Quantite")
+                    b.Property<double>("quantite")
                         .HasColumnType("float");
 
-                    b.HasKey("Id");
+                    b.HasKey("id");
 
-                    b.HasIndex("AchatId");
+                    b.HasIndex("achatId");
 
-                    b.HasIndex("ArticleId");
+                    b.HasIndex("articleId");
 
                     b.ToTable("detailAchats");
                 });
 
             modelBuilder.Entity("ATD_API.Entities.DetailCommande", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Article")
+                    b.Property<string>("article")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("ArticleId")
+                    b.Property<Guid>("articleId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("CommandeId")
+                    b.Property<Guid>("commandeId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Emballage")
+                    b.Property<string>("emballage")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("PrixTotal")
+                    b.Property<double>("prixTotal")
                         .HasColumnType("float");
 
-                    b.Property<double>("PrixUnit")
+                    b.Property<double>("prixUnit")
                         .HasColumnType("float");
 
-                    b.Property<double>("Quantite")
+                    b.Property<double>("quantite")
                         .HasColumnType("float");
 
-                    b.Property<double>("QuantiteLivree")
+                    b.Property<double>("quantiteLivree")
                         .HasColumnType("float");
 
-                    b.Property<double>("ResteQuantite")
+                    b.Property<double>("resteQuantite")
                         .HasColumnType("float");
 
-                    b.HasKey("Id");
+                    b.HasKey("id");
 
-                    b.HasIndex("CommandeId");
+                    b.HasIndex("commandeId");
 
                     b.ToTable("detailCommandes");
                 });
 
             modelBuilder.Entity("ATD_API.Entities.DetailFacture", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Article")
+                    b.Property<string>("article")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("ArticleId")
+                    b.Property<Guid>("articleId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Emballage")
+                    b.Property<string>("emballage")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("FactureId")
+                    b.Property<Guid>("factureId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<double>("PrixTotal")
+                    b.Property<double>("prixTotal")
                         .HasColumnType("float");
 
-                    b.Property<double>("PrixUnit")
+                    b.Property<double>("prixUnit")
                         .HasColumnType("float");
 
-                    b.Property<double>("Quantite")
+                    b.Property<double>("quantite")
                         .HasColumnType("float");
 
-                    b.HasKey("Id");
+                    b.HasKey("id");
 
-                    b.HasIndex("FactureId");
+                    b.HasIndex("factureId");
 
                     b.ToTable("detailFactures");
                 });
 
             modelBuilder.Entity("ATD_API.Entities.DetailIventaire", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("ArticleId")
+                    b.Property<Guid>("articleId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<double>("Ecart")
+                    b.Property<double>("ecart")
                         .HasColumnType("float");
 
-                    b.Property<string>("Emballage")
+                    b.Property<string>("emballage")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("InventaireId")
+                    b.Property<Guid>("inventaireId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<double>("QuantiteLogique")
+                    b.Property<double>("quantiteLogique")
                         .HasColumnType("float");
 
-                    b.Property<double>("QuantitePhysique")
+                    b.Property<double>("quantitePhysique")
                         .HasColumnType("float");
 
-                    b.HasKey("Id");
+                    b.HasKey("id");
 
                     b.ToTable("detailIventaires");
                 });
 
             modelBuilder.Entity("ATD_API.Entities.DetailLivraison", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Article")
+                    b.Property<string>("article")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("ArticleId")
+                    b.Property<Guid>("articleId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Emballage")
+                    b.Property<string>("emballage")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("LivraisonId")
+                    b.Property<Guid>("livraisonId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<double>("PrixTotal")
+                    b.Property<double>("prixTotal")
                         .HasColumnType("float");
 
-                    b.Property<double>("PrixUnit")
+                    b.Property<double>("prixUnit")
                         .HasColumnType("float");
 
-                    b.Property<double>("Quantite")
+                    b.Property<double>("quantite")
                         .HasColumnType("float");
 
-                    b.HasKey("Id");
+                    b.HasKey("id");
 
-                    b.HasIndex("LivraisonId");
+                    b.HasIndex("livraisonId");
 
                     b.ToTable("detailLivraisons");
                 });
 
             modelBuilder.Entity("ATD_API.Entities.Emballage", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("Created")
+                    b.Property<DateTime>("created")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Libelle")
+                    b.Property<string>("libelle")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.Property<Guid>("utilisateurId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("id");
 
                     b.ToTable("emballages");
                 });
 
             modelBuilder.Entity("ATD_API.Entities.EmballageByArticle", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("ArticleId")
+                    b.Property<Guid>("articleId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("EmballageDetail")
+                    b.Property<string>("emballageDetail")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("EmballageGros")
+                    b.Property<string>("emballageGros")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("id");
 
                     b.ToTable("emballageByArticles");
                 });
 
             modelBuilder.Entity("ATD_API.Entities.Facture", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Client")
+                    b.Property<string>("client")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("DateFacture")
+                    b.Property<DateTime>("dateFacture")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("LocationId")
+                    b.Property<Guid>("locationId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Monnaie")
+                    b.Property<string>("monnaie")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("MontantLettre")
+                    b.Property<string>("montantLettre")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("MontantPayer")
+                    b.Property<double>("montantPayer")
                         .HasColumnType("float");
 
-                    b.Property<string>("NumeroFacture")
+                    b.Property<string>("numeroFacture")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Paiement")
+                    b.Property<string>("paiement")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("Remise")
+                    b.Property<string>("periode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("remise")
                         .HasColumnType("float");
 
-                    b.Property<double>("ResteApayer")
+                    b.Property<double>("resteApayer")
                         .HasColumnType("float");
 
-                    b.Property<string>("Status")
+                    b.Property<string>("status")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("Taux")
+                    b.Property<double>("taux")
                         .HasColumnType("float");
 
-                    b.Property<double>("TotalHt")
+                    b.Property<double>("totalHt")
                         .HasColumnType("float");
 
-                    b.HasKey("Id");
+                    b.Property<Guid>("utilisateurId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.HasIndex("LocationId");
+                    b.HasKey("id");
+
+                    b.HasIndex("locationId");
 
                     b.ToTable("factures");
                 });
 
             modelBuilder.Entity("ATD_API.Entities.Famille", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("Created")
+                    b.Property<DateTime>("created")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Libelle")
+                    b.Property<string>("libelle")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.Property<Guid>("utilisateurId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("id");
 
                     b.ToTable("familles");
                 });
 
             modelBuilder.Entity("ATD_API.Entities.Fournisseur", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Adresse")
+                    b.Property<string>("adresse")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("Created")
+                    b.Property<DateTime>("created")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Nom")
+                    b.Property<string>("nom")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Telephone")
+                    b.Property<string>("telephone")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Ville")
+                    b.Property<Guid>("utilisateurId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ville")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("id");
 
                     b.ToTable("fournisseurs");
                 });
 
             modelBuilder.Entity("ATD_API.Entities.HistoriquePrixVente", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<double>("AncienPrixDeVenteDetail")
+                    b.Property<double>("ancienPrixDeVenteDetail")
                         .HasColumnType("float");
 
-                    b.Property<double>("AncienPrixDeVenteGros")
+                    b.Property<double>("ancienPrixDeVenteGros")
                         .HasColumnType("float");
 
-                    b.Property<Guid>("ArticleId")
+                    b.Property<Guid>("articleId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("DateModification")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("dateModification")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("Monnaie")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid>("locationId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<double>("NouveauPrixDeVenteDetail")
+                    b.Property<double>("nouveauPrixDeVenteDetail")
                         .HasColumnType("float");
 
-                    b.Property<double>("NouveauPrixDeVenteGros")
+                    b.Property<double>("nouveauPrixDeVenteGros")
                         .HasColumnType("float");
 
-                    b.HasKey("Id");
+                    b.Property<Guid>("utilisateurId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("id");
 
                     b.ToTable("historiquePrixVentes");
                 });
 
             modelBuilder.Entity("ATD_API.Entities.Inventaire", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("ArticleId")
+                    b.Property<Guid>("articleId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("DateInventaire")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("date")
+                        .HasColumnType("datetime2");
 
-                    b.Property<double>("Ecart")
+                    b.Property<DateTime>("date1")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("date2")
+                        .HasColumnType("datetime2");
+
+                    b.Property<double>("ecart")
                         .HasColumnType("float");
 
-                    b.Property<string>("EmballageDetail")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("EmballageGros")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("LocationId")
+                    b.Property<Guid>("locationId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Monnaie")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("PrixAchat")
+                    b.Property<double>("quantiteLogique")
                         .HasColumnType("float");
 
-                    b.Property<double>("PrixVente")
+                    b.Property<double>("quantitePhysique")
                         .HasColumnType("float");
 
-                    b.Property<double>("QuantiteLogiqueGros")
-                        .HasColumnType("float");
+                    b.Property<Guid>("utilisateurId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<double>("QuantitePhysiqueDetail")
-                        .HasColumnType("float");
+                    b.HasKey("id");
 
-                    b.Property<double>("QuantitePhysiqueGros")
-                        .HasColumnType("float");
+                    b.HasIndex("articleId");
 
-                    b.Property<double>("QuatiteLogiqueDetail")
-                        .HasColumnType("float");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ArticleId");
-
-                    b.HasIndex("LocationId");
+                    b.HasIndex("locationId");
 
                     b.ToTable("inventaires");
                 });
 
-            modelBuilder.Entity("ATD_API.Entities.Livraison", b =>
+            modelBuilder.Entity("ATD_API.Entities.InvetaireComptable", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("DateLivraison")
+                    b.Property<Guid>("articleId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("created")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("FournisseurId")
+                    b.Property<DateTime>("date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("date1")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("locationId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("LocationId")
+                    b.Property<double>("montantEnt")
+                        .HasColumnType("float");
+
+                    b.Property<double>("montantFinal")
+                        .HasColumnType("float");
+
+                    b.Property<double>("montantInit")
+                        .HasColumnType("float");
+
+                    b.Property<double>("montantSort")
+                        .HasColumnType("float");
+
+                    b.Property<double>("qteEnt")
+                        .HasColumnType("float");
+
+                    b.Property<double>("qteSort")
+                        .HasColumnType("float");
+
+                    b.Property<double>("stockFinal")
+                        .HasColumnType("float");
+
+                    b.Property<double>("stockInit")
+                        .HasColumnType("float");
+
+                    b.Property<Guid>("utilisateurId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("MonnaieId")
+                    b.HasKey("id");
+
+                    b.ToTable("inventaireComptables");
+                });
+
+            modelBuilder.Entity("ATD_API.Entities.Livraison", b =>
+                {
+                    b.Property<Guid>("id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("NumeroCommande")
+                    b.Property<DateTime>("dateLivraison")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("fournisseurId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("locationId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("numeroCommande")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("NumeroLivraison")
+                    b.Property<string>("numeroLivraison")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Observation")
+                    b.Property<string>("observation")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.Property<string>("periode")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasIndex("FournisseurId");
+                    b.Property<double>("totalLivraison")
+                        .HasColumnType("float");
 
-                    b.HasIndex("LocationId");
+                    b.Property<Guid>("utilisateurId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.HasIndex("MonnaieId");
+                    b.HasKey("id");
+
+                    b.HasIndex("fournisseurId");
+
+                    b.HasIndex("locationId");
 
                     b.ToTable("livraisons");
                 });
 
             modelBuilder.Entity("ATD_API.Entities.Location", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Addresse")
+                    b.Property<string>("addresse")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DateCloture")
+                    b.Property<string>("dateCloture")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("DateCreation")
+                    b.Property<DateTime>("dateCreation")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Designation")
+                    b.Property<string>("designation")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("Flag")
+                    b.Property<bool>("flag")
                         .HasColumnType("bit");
 
-                    b.Property<string>("NumeroAchat")
+                    b.Property<string>("numeroAchat")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("NumeroCommande")
+                    b.Property<string>("numeroCommande")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("NumeroFacture")
+                    b.Property<string>("numeroFacture")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("NumeroLivraison")
+                    b.Property<string>("numeroLivraison")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("SocieteId")
+                    b.Property<Guid>("societeId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("Id");
+                    b.HasKey("id");
 
-                    b.HasIndex("SocieteId");
+                    b.HasIndex("societeId");
 
                     b.ToTable("locations");
                 });
 
             modelBuilder.Entity("ATD_API.Entities.Login", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Pwd")
+                    b.Property<string>("pwd")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("User")
+                    b.Property<bool>("state")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("utilisateur")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.Property<Guid>("utilisateurId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("id");
 
                     b.ToTable("logins");
                 });
 
             modelBuilder.Entity("ATD_API.Entities.Monnaie", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("Created")
+                    b.Property<DateTime>("created")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Devise")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Libelle")
+                    b.Property<string>("devise")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("estLocal")
                         .HasColumnType("bit");
 
-                    b.HasKey("Id");
+                    b.Property<string>("libelle")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("utilisateurId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("id");
 
                     b.ToTable("monnaies");
                 });
 
             modelBuilder.Entity("ATD_API.Entities.Mouvement", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Article")
+                    b.Property<string>("article")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("ArticleId")
+                    b.Property<Guid>("articleId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("Created")
+                    b.Property<DateTime>("created")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Designation")
+                    b.Property<string>("designation")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Emballage")
+                    b.Property<string>("emballage")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("LocationId")
+                    b.Property<Guid>("locationId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<float>("Quantite")
-                        .HasColumnType("real");
+                    b.Property<double>("quantite")
+                        .HasColumnType("float");
 
-                    b.Property<string>("Type")
+                    b.Property<string>("type")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("id");
 
                     b.ToTable("mouvements");
                 });
 
-            modelBuilder.Entity("ATD_API.Entities.Paiement", b =>
+            modelBuilder.Entity("ATD_API.Entities.MouvementStock", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("DatePaiement")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("article")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("FactureId")
+                    b.Property<Guid>("articleId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<double>("MontantPayer")
+                    b.Property<DateTime>("date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("libelle")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("locationId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("periode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("ptEnt")
                         .HasColumnType("float");
 
-                    b.HasKey("Id");
+                    b.Property<double>("ptSort")
+                        .HasColumnType("float");
 
-                    b.HasIndex("FactureId");
+                    b.Property<double>("ptSt")
+                        .HasColumnType("float");
+
+                    b.Property<double>("puEntr")
+                        .HasColumnType("float");
+
+                    b.Property<double>("puSort")
+                        .HasColumnType("float");
+
+                    b.Property<double>("puSt")
+                        .HasColumnType("float");
+
+                    b.Property<double>("qteEntr")
+                        .HasColumnType("float");
+
+                    b.Property<double>("qteSort")
+                        .HasColumnType("float");
+
+                    b.Property<double>("qteSt")
+                        .HasColumnType("float");
+
+                    b.HasKey("id");
+
+                    b.ToTable("mouvementStocks");
+                });
+
+            modelBuilder.Entity("ATD_API.Entities.Paiement", b =>
+                {
+                    b.Property<Guid>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("datePaiement")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("factureId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<double>("montantPayer")
+                        .HasColumnType("float");
+
+                    b.Property<string>("periode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("utilisateurId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("factureId");
 
                     b.ToTable("paiements");
                 });
 
             modelBuilder.Entity("ATD_API.Entities.ParametreSociete", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Addresse")
+                    b.Property<string>("addresse")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Attachement")
+                    b.Property<int>("attachement")
                         .HasColumnType("int");
 
-                    b.Property<string>("Denomination")
+                    b.Property<DateTime>("created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("denomination")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("IdNat")
+                    b.Property<string>("idNat")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Monnaie")
+                    b.Property<string>("monnaie")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Rccm")
+                    b.Property<string>("rccm")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Telephone")
+                    b.Property<string>("telephone")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("Tva")
+                    b.Property<double>("tva")
                         .HasColumnType("float");
 
-                    b.Property<string>("Ville")
+                    b.Property<Guid>("utilisateurId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ville")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("id");
 
                     b.ToTable("parametreSocietes");
                 });
 
             modelBuilder.Entity("ATD_API.Entities.Portefeuille", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -867,172 +1019,180 @@ namespace ATD_API.Migrations
                     b.Property<DateTime>("created")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("monnaieId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<double>("montant")
                         .HasColumnType("float");
 
-                    b.HasKey("Id");
+                    b.Property<string>("periode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasIndex("monnaieId");
+                    b.Property<Guid>("utilisateurId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("id");
 
                     b.ToTable("portefeuilles");
                 });
 
             modelBuilder.Entity("ATD_API.Entities.PrixAchatArticle", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("ArticleId")
+                    b.Property<Guid>("articleId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("DateAchat")
+                    b.Property<string>("dateAchat")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("MonnaieId")
+                    b.Property<Guid>("monnaieId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<double>("PrixAchatDetail")
+                    b.Property<double>("prixAchatDetail")
                         .HasColumnType("float");
 
-                    b.Property<double>("PrixAchatGros")
+                    b.Property<double>("prixAchatGros")
                         .HasColumnType("float");
 
-                    b.HasKey("Id");
+                    b.HasKey("id");
 
-                    b.HasIndex("ArticleId");
+                    b.HasIndex("articleId");
 
-                    b.HasIndex("MonnaieId");
+                    b.HasIndex("monnaieId");
 
                     b.ToTable("prixAchatArticles");
                 });
 
             modelBuilder.Entity("ATD_API.Entities.PrixArticleLocation", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("ArticleId")
+                    b.Property<Guid>("articleId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("LocationId")
+                    b.Property<DateTime?>("created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("locationId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Monnaie")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("PrixVenteDetail")
+                    b.Property<double>("prixVenteDetail")
                         .HasColumnType("float");
 
-                    b.Property<double>("PrixVenteGros")
+                    b.Property<double>("prixVenteGros")
                         .HasColumnType("float");
 
-                    b.HasKey("Id");
+                    b.Property<Guid>("utilisateurId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.HasIndex("ArticleId");
+                    b.HasKey("id");
 
-                    b.HasIndex("LocationId");
+                    b.HasIndex("articleId");
+
+                    b.HasIndex("locationId");
 
                     b.ToTable("prixArticleLocations");
                 });
 
             modelBuilder.Entity("ATD_API.Entities.Role", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Libelle")
+                    b.Property<string>("libelle")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.Property<Guid>("locationId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("id");
 
                     b.ToTable("roles");
                 });
 
             modelBuilder.Entity("ATD_API.Entities.Signaletique", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Addresse")
+                    b.Property<string>("addresse")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Categorie")
+                    b.Property<string>("categorie")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Email")
+                    b.Property<DateTime>("created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("nom")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Nom")
+                    b.Property<string>("telephone")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("RaisonSociale")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid>("utilisateurId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Telephone")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
+                    b.HasKey("id");
 
                     b.ToTable("signaletiques");
                 });
 
             modelBuilder.Entity("ATD_API.Entities.Stock", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("ArticleId")
+                    b.Property<Guid>("articleId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("LocationId")
+                    b.Property<Guid>("locationId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<double>("Quantite")
+                    b.Property<double>("quantite")
                         .HasColumnType("float");
 
-                    b.HasKey("Id");
+                    b.HasKey("id");
 
-                    b.HasIndex("ArticleId");
+                    b.HasIndex("articleId");
 
-                    b.HasIndex("LocationId");
+                    b.HasIndex("locationId");
 
                     b.ToTable("article_stocks");
                 });
 
             modelBuilder.Entity("ATD_API.Entities.Utilisateur", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("Created")
+                    b.Property<DateTime>("created")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("LocationId")
+                    b.Property<Guid>("locationId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Nom")
+                    b.Property<string>("nom")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Postnom")
+                    b.Property<string>("postnom")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("RoleId")
+                    b.Property<Guid>("roleId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("Id");
+                    b.HasKey("id");
 
                     b.ToTable("utilisateurs");
                 });
@@ -1041,34 +1201,26 @@ namespace ATD_API.Migrations
                 {
                     b.HasOne("ATD_API.Entities.Fournisseur", "Fournisseur")
                         .WithMany()
-                        .HasForeignKey("FournisseurId")
+                        .HasForeignKey("fournisseurId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ATD_API.Entities.Location", "Location")
                         .WithMany()
-                        .HasForeignKey("LocationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ATD_API.Entities.Monnaie", "Monnaie")
-                        .WithMany()
-                        .HasForeignKey("MonnaieId")
+                        .HasForeignKey("locationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Fournisseur");
 
                     b.Navigation("Location");
-
-                    b.Navigation("Monnaie");
                 });
 
             modelBuilder.Entity("ATD_API.Entities.Article", b =>
                 {
                     b.HasOne("ATD_API.Entities.Famille", "Famille")
                         .WithMany()
-                        .HasForeignKey("FamilleId")
+                        .HasForeignKey("familleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1079,19 +1231,19 @@ namespace ATD_API.Migrations
                 {
                     b.HasOne("ATD_API.Entities.Article", "Article")
                         .WithMany()
-                        .HasForeignKey("ArticleId")
+                        .HasForeignKey("articleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ATD_API.Entities.Emballage", "Emballage")
                         .WithMany("ArticleLocations")
-                        .HasForeignKey("EmballageId")
+                        .HasForeignKey("emballageId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ATD_API.Entities.Location", "Location")
                         .WithMany("ArticleLocations")
-                        .HasForeignKey("LocationId")
+                        .HasForeignKey("locationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1106,32 +1258,24 @@ namespace ATD_API.Migrations
                 {
                     b.HasOne("ATD_API.Entities.Fournisseur", "Fournisseur")
                         .WithMany("Commandes")
-                        .HasForeignKey("FournisseurId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ATD_API.Entities.Monnaie", "Monnaie")
-                        .WithMany("Commandes")
-                        .HasForeignKey("MonnaieId")
+                        .HasForeignKey("fournisseurId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Fournisseur");
-
-                    b.Navigation("Monnaie");
                 });
 
             modelBuilder.Entity("ATD_API.Entities.DetailAchat", b =>
                 {
                     b.HasOne("ATD_API.Entities.Achat", null)
-                        .WithMany("DetailAchats")
-                        .HasForeignKey("AchatId")
+                        .WithMany("detailAchats")
+                        .HasForeignKey("achatId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ATD_API.Entities.Article", null)
-                        .WithMany("DetailAchats")
-                        .HasForeignKey("ArticleId")
+                        .WithMany("detailAchats")
+                        .HasForeignKey("articleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -1139,8 +1283,8 @@ namespace ATD_API.Migrations
             modelBuilder.Entity("ATD_API.Entities.DetailCommande", b =>
                 {
                     b.HasOne("ATD_API.Entities.Commande", null)
-                        .WithMany("DetailCommandes")
-                        .HasForeignKey("CommandeId")
+                        .WithMany("detailCommandes")
+                        .HasForeignKey("commandeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -1148,8 +1292,8 @@ namespace ATD_API.Migrations
             modelBuilder.Entity("ATD_API.Entities.DetailFacture", b =>
                 {
                     b.HasOne("ATD_API.Entities.Facture", null)
-                        .WithMany("DetailFactures")
-                        .HasForeignKey("FactureId")
+                        .WithMany("detailFactures")
+                        .HasForeignKey("factureId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -1157,8 +1301,8 @@ namespace ATD_API.Migrations
             modelBuilder.Entity("ATD_API.Entities.DetailLivraison", b =>
                 {
                     b.HasOne("ATD_API.Entities.Livraison", null)
-                        .WithMany("DetailLivraisons")
-                        .HasForeignKey("LivraisonId")
+                        .WithMany("detailLivraisons")
+                        .HasForeignKey("livraisonId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -1167,7 +1311,7 @@ namespace ATD_API.Migrations
                 {
                     b.HasOne("ATD_API.Entities.Location", "Location")
                         .WithMany("Factures")
-                        .HasForeignKey("LocationId")
+                        .HasForeignKey("locationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1176,55 +1320,43 @@ namespace ATD_API.Migrations
 
             modelBuilder.Entity("ATD_API.Entities.Inventaire", b =>
                 {
-                    b.HasOne("ATD_API.Entities.Article", "Article")
+                    b.HasOne("ATD_API.Entities.Article", null)
                         .WithMany("Inventaires")
-                        .HasForeignKey("ArticleId")
+                        .HasForeignKey("articleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ATD_API.Entities.Location", "Location")
+                    b.HasOne("ATD_API.Entities.Location", null)
                         .WithMany("Inventaires")
-                        .HasForeignKey("LocationId")
+                        .HasForeignKey("locationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Article");
-
-                    b.Navigation("Location");
                 });
 
             modelBuilder.Entity("ATD_API.Entities.Livraison", b =>
                 {
                     b.HasOne("ATD_API.Entities.Fournisseur", "Fournisseur")
                         .WithMany("Livraisons")
-                        .HasForeignKey("FournisseurId")
+                        .HasForeignKey("fournisseurId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ATD_API.Entities.Location", "Location")
                         .WithMany("Livraisons")
-                        .HasForeignKey("LocationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ATD_API.Entities.Monnaie", "Monnaie")
-                        .WithMany("Livraisons")
-                        .HasForeignKey("MonnaieId")
+                        .HasForeignKey("locationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Fournisseur");
 
                     b.Navigation("Location");
-
-                    b.Navigation("Monnaie");
                 });
 
             modelBuilder.Entity("ATD_API.Entities.Location", b =>
                 {
                     b.HasOne("ATD_API.Entities.ParametreSociete", "Societe")
                         .WithMany("Locations")
-                        .HasForeignKey("SocieteId")
+                        .HasForeignKey("societeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1235,35 +1367,24 @@ namespace ATD_API.Migrations
                 {
                     b.HasOne("ATD_API.Entities.Facture", "Facture")
                         .WithMany("Paiements")
-                        .HasForeignKey("FactureId")
+                        .HasForeignKey("factureId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Facture");
                 });
 
-            modelBuilder.Entity("ATD_API.Entities.Portefeuille", b =>
-                {
-                    b.HasOne("ATD_API.Entities.Monnaie", "monnaie")
-                        .WithMany("Portefeuilles")
-                        .HasForeignKey("monnaieId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("monnaie");
-                });
-
             modelBuilder.Entity("ATD_API.Entities.PrixAchatArticle", b =>
                 {
                     b.HasOne("ATD_API.Entities.Article", "Article")
                         .WithMany("PrixAchatArticles")
-                        .HasForeignKey("ArticleId")
+                        .HasForeignKey("articleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ATD_API.Entities.Monnaie", "Monnaie")
                         .WithMany("PrixAchatArticles")
-                        .HasForeignKey("MonnaieId")
+                        .HasForeignKey("monnaieId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1276,13 +1397,13 @@ namespace ATD_API.Migrations
                 {
                     b.HasOne("ATD_API.Entities.Article", "Article")
                         .WithMany("PrixArticleLocations")
-                        .HasForeignKey("ArticleId")
+                        .HasForeignKey("articleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ATD_API.Entities.Location", "Location")
                         .WithMany("PrixArticleLocations")
-                        .HasForeignKey("LocationId")
+                        .HasForeignKey("locationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1295,26 +1416,24 @@ namespace ATD_API.Migrations
                 {
                     b.HasOne("ATD_API.Entities.Article", null)
                         .WithMany("Stocks")
-                        .HasForeignKey("ArticleId")
+                        .HasForeignKey("articleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ATD_API.Entities.Location", null)
                         .WithMany("Stocks")
-                        .HasForeignKey("LocationId")
+                        .HasForeignKey("locationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
             modelBuilder.Entity("ATD_API.Entities.Achat", b =>
                 {
-                    b.Navigation("DetailAchats");
+                    b.Navigation("detailAchats");
                 });
 
             modelBuilder.Entity("ATD_API.Entities.Article", b =>
                 {
-                    b.Navigation("DetailAchats");
-
                     b.Navigation("Inventaires");
 
                     b.Navigation("PrixAchatArticles");
@@ -1322,11 +1441,13 @@ namespace ATD_API.Migrations
                     b.Navigation("PrixArticleLocations");
 
                     b.Navigation("Stocks");
+
+                    b.Navigation("detailAchats");
                 });
 
             modelBuilder.Entity("ATD_API.Entities.Commande", b =>
                 {
-                    b.Navigation("DetailCommandes");
+                    b.Navigation("detailCommandes");
                 });
 
             modelBuilder.Entity("ATD_API.Entities.Emballage", b =>
@@ -1336,9 +1457,9 @@ namespace ATD_API.Migrations
 
             modelBuilder.Entity("ATD_API.Entities.Facture", b =>
                 {
-                    b.Navigation("DetailFactures");
-
                     b.Navigation("Paiements");
+
+                    b.Navigation("detailFactures");
                 });
 
             modelBuilder.Entity("ATD_API.Entities.Fournisseur", b =>
@@ -1350,7 +1471,7 @@ namespace ATD_API.Migrations
 
             modelBuilder.Entity("ATD_API.Entities.Livraison", b =>
                 {
-                    b.Navigation("DetailLivraisons");
+                    b.Navigation("detailLivraisons");
                 });
 
             modelBuilder.Entity("ATD_API.Entities.Location", b =>
@@ -1370,12 +1491,6 @@ namespace ATD_API.Migrations
 
             modelBuilder.Entity("ATD_API.Entities.Monnaie", b =>
                 {
-                    b.Navigation("Commandes");
-
-                    b.Navigation("Livraisons");
-
-                    b.Navigation("Portefeuilles");
-
                     b.Navigation("PrixAchatArticles");
                 });
 

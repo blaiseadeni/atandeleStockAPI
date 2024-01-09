@@ -5,17 +5,19 @@ namespace ATD_API.Entities;
 
 public partial class Fournisseur
 {
-    public Guid Id { get; set; }
+    public Guid id { get; set; }
 
-    public string Nom { get; set; } = null!;
+    public Guid utilisateurId { get; set; }
 
-    public string Ville { get; set; } = null!;
+    public string nom { get; set; } = null!;
 
-    public string Adresse { get; set; } = null!;
+    public string ville { get; set; } = null!;
 
-    public string Telephone { get; set; } = null!;
+    public string adresse { get; set; } = null!;
 
-    public DateTime Created { get; set; }
+    public string telephone { get; set; } = null!;
+
+    public DateTime created { get; set; }
 
 
     public virtual ICollection<Commande> Commandes { get; set; } = new List<Commande>();

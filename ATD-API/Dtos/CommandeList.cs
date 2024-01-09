@@ -4,35 +4,36 @@ namespace ATD_API.Dtos
 {
     public class CommandeList
     {
-        public Guid Id { get; set; }
+        public Guid id { get; set; }
 
-        public string? NumeroCommande { get; set; }
+        public string? numeroCommande { get; set; }
 
-        public DateTime DateCommande { get; set; }
+        public DateTime dateCommande { get; set; }
 
-        public DateTime DateLivraison { get; set; }
+        public DateTime dateLivraison { get; set; }
 
-        public string? Echeance { get; set; }
+        public string? echeance { get; set; }
 
-        public Guid FournisseurId { get; set; }
-        public string Fournisseur { get; set; }
+        public Guid fournisseurId { get; set; }
 
-
-        public string? Observation { get; set; }
-
-        public string? Concerne { get; set; }
-
-        public double TotalCommande { get; set; }
-
-        public Guid MonnaieId { get; set; }
+        public string fournisseur { get; set; }
 
 
-        public string Monnaie { get; set; }
+        public string? observation { get; set; }
 
-        public double TauxDeChange { get; set; }
+        public string? concerne { get; set; }
 
-        public bool Status { get; set; }
+        public double totalCommande { get; set; }
 
-        public virtual ICollection<DetailCommande> DetailCommandes { get; set; } = new List<DetailCommande>();
+        public Guid monnaieId { get; set; }
+
+
+        public string monnaie { get; set; }
+
+        public double tauxDeChange { get; set; }
+
+        public bool status { get; set; }
+
+        public virtual ICollection<DetailCommande> detailCommandes { get; set; } = new List<DetailCommande>();
     }
 }

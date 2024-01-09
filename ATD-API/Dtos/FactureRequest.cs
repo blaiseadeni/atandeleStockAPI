@@ -4,30 +4,30 @@ namespace ATD_API.Dtos
 {
     public class FactureRequest
     {
-        public string? NumeroFacture { get; set; }
+    
 
-        public Guid LocationId { get; set; }
+        public Guid locationId { get; set; }
 
-        public string? Client { get; set; }
+        public Guid utilisateurId { get; set; }
 
-        public double Taux { get; set; }
+        public string? client { get; set; }
 
-        public double Remise { get; set; }
+        public Guid clientId { get; set; }
 
-        public double TotalHt { get; set; }
+        public double remise { get; set; }
 
-        public double MontantPayer { get; set; }
+        public double totalHt { get; set; }
 
-        public double ResteApayer { get; set; }
+        public double montantPayer { get; set; }
 
-        public string? Monnaie { get; set; }
+        public double resteApayer { get; set; }
 
-        public string? Paiement { get; set; }
+        public string? paiement { get; set; }
 
-        public string Status { get; set; }
+        public string status { get; set; }
 
-        public double MontantPortefeuille { get; set; }
+        public double montantPortefeuille { get; set; }
 
-        public virtual ICollection<DetailFacture> DetailFactures { get; set; } = new List<DetailFacture>();
+        public virtual ICollection<DetailFacture> detailFactures { get; set; } = new List<DetailFacture>();
     }
 }

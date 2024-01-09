@@ -2,7 +2,8 @@
 {
     public class Role
     {
-        public Guid Id { get; set; }
-        public string Libelle { get; set; }
+        public Guid id { get; set; }
+        public Guid locationId { get; set; }
+        public string libelle { get; set; }
     }
 }

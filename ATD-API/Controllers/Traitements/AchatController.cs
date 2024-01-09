@@ -31,118 +31,142 @@ namespace ATD_API.Controllers.Traitements
         }
 
         [HttpPost]
-        public async Task<ActionResult<Achat>> Add([FromBody] AchatModel request)
+        public async Task<ActionResult<Achat>> Add([FromBody] AchatDto request)
         {
-
-            var result = await _repository.AddAsync(_mapper.Map<Achat>(request));
-            MouvementMod mouvement = new MouvementMod();
             StockMod stock = new StockMod();
-            foreach (var item in result.DetailAchats)
+            AchatModel model = new AchatModel();
+
+            Random random = new Random();
+            int num = random.Next();
+
+            model.numeroAchat = DateTime.Now.Year.ToString() + DateTime.Now.Month + num;
+            model.periode = DateTime.Now.Month.ToString() + DateTime.Now.Year;
+            model.locationId = request.locationId;
+            model.utilisateurId = request.utilisateurId;
+            model.fournisseurId = request.fournisseurId;
+            model.numeroFacture = request.numeroFacture;
+            model.dateAchat = request.dateAchat;
+            model.montantTotal = request.montantTotal;
+            model.tauxAchat = 1;
+            model.detailAchats = request.detailAchats;
+
+            var result = await _repository.AddAsync(_mapper.Map<Achat>(model));
+            MouvementStock mouvement = new MouvementStock();
+
+
+            foreach (var item in result.detailAchats)
             {
-                mouvement.ArticleId = item.ArticleId;
-                mouvement.Article = item.Article;
-                mouvement.LocationId = result.LocationId;
-                mouvement.Quantite = item.Quantite;
-                mouvement.Type = "ENTRE";
-                mouvement.Designation = "ACHAT";
-                mouvement.Emballage = item.Emballage;
+
                 //ajout dans le stock
-                var query = await _myDbContext.article_stocks.FirstOrDefaultAsync(s => s.ArticleId == item.ArticleId && s.LocationId == result.LocationId);
-                var emballage = await _myDbContext.emballageByArticles.FirstOrDefaultAsync(s => s.ArticleId == item.ArticleId);
-                var article = await _myDbContext.articles.FirstOrDefaultAsync(s => s.Id == item.ArticleId);
+                var query = await _myDbContext.article_stocks.FirstOrDefaultAsync(s => s.articleId == item.articleId && s.locationId == result.locationId);
+                var emballage = await _myDbContext.emballageByArticles.FirstOrDefaultAsync(s => s.articleId == item.articleId);
+                var article = await _myDbContext.articles.FirstOrDefaultAsync(s => s.id == item.articleId);
+
+                mouvement.articleId = item.articleId;
+                mouvement.article = item.article;
+                mouvement.locationId = result.locationId;
+                mouvement.puEntr = item.prixUnit;
+                mouvement.periode = result.periode;
+                mouvement.date = DateTime.Now;
+                mouvement.libelle = "Entrées";
+                if (item.emballage == emballage.emballageGros)
+                {
+                    mouvement.qteEntr = item.quantite * article.quantiteDetail;
+
+                }
+                else
+                {
+                    mouvement.qteEntr = item.quantite;
+                }
+                //mouvement.type = "ENTRE";
+                mouvement.ptEnt = mouvement.qteEntr * item.prixUnit;
+                mouvement.qteSt = query.quantite + mouvement.qteEntr;
+                //  mouvement.emballage = emballage.emballageDetail;
+
+
                 if (query == null)
                 {
-                    stock.LocationId = result.LocationId;
-                    stock.ArticleId = item.ArticleId;
-                    if (emballage != null && emballage.EmballageGros == item.Emballage)
+                    stock.locationId = result.locationId;
+                    stock.articleId = item.articleId;
+                    if (emballage != null && emballage.emballageGros == item.emballage)
                     {
-                        stock.Quantite = item.Quantite * article.QuantiteDetail;
+                        stock.quantite = item.quantite * article.quantiteDetail;
                     }
                     else
                     {
-                        stock.Quantite = item.Quantite;
+                        stock.quantite = item.quantite;
                     }
                     await _stockRepository.AddAsync(_mapper.Map<Stock>(stock));
                 }
                 else
                 {
-                    if (emballage != null && emballage.EmballageGros == item.Emballage)
+                    if (emballage != null && emballage.emballageGros == item.emballage)
                     {
-                        query.Quantite += item.Quantite * article.QuantiteDetail;
+                        query.quantite += item.quantite * article.quantiteDetail;
                     }
                     else
                     {
-                        query.Quantite += item.Quantite;
+                        query.quantite += item.quantite;
                     }
-                    query.Quantite += item.Quantite;
+
                     await _stockRepository.UpdateAsync(_mapper.Map<Stock>(query));
 
                 }
 
+                var res = _myDbContext.mouvementStocks.Add(mouvement);
+                await _myDbContext.SaveChangesAsync();
 
-                await _mouvementRepository.AddAsync(_mapper.Map<Mouvement>(mouvement));
+                // await _mouvementRepository.AddAsync(_mapper.Map<Mouvement>(mouvement));
+
             }
 
-            return Ok("Saved successfullly");
+            return result;
         }
 
         [HttpPut("{id}")]
         public async Task<ActionResult<Achat>> Update(Guid id, [FromBody] AchatModel request)
         {
             var query = await _repository.FindByIdAsync(id);
-            query.DateAchat = request.DateAchat;
-            query.NumeroFacture = request.NumeroFacture;
-            query.NumeroAchat = request.NumeroAchat;
-            query.FournisseurId = request.FournisseurId;
-            query.LocationId = request.LocationId;
-            query.MonnaieId = request.MonnaieId;
-            query.MontantTotal = request.MontantTotal;
-            query.TauxAchat = request.TauxAchat;
-            query.DetailAchats = request.DetailAchats;
+            query.dateAchat = request.dateAchat;
+            query.numeroFacture = request.numeroFacture;
+            query.numeroAchat = request.numeroAchat;
+            query.fournisseurId = request.fournisseurId;
+            query.locationId = request.locationId;
+            query.montantTotal = request.montantTotal;
+            query.tauxAchat = request.tauxAchat;
+            query.detailAchats = request.detailAchats;
 
             var result = await _repository.UpdateAsync(query);
             return Ok("Updated successfully");
         }
 
-        [HttpGet]
-        public async Task<ActionResult<Achat>> FindAll()
+        [HttpGet("all/{id:Guid}")]
+        public async Task<ActionResult<Achat>> FindAll(Guid id)
         {
-            var items = await (from a in _myDbContext.achats.Include(d => d.DetailAchats)
-                               join f in _myDbContext.fournisseurs on a.FournisseurId equals f.Id
-                               join m in _myDbContext.monnaies on a.MonnaieId equals m.Id
-                               join l in _myDbContext.locations on a.LocationId equals l.Id
+            var items = await (from a in _myDbContext.achats.Include(d => d.detailAchats)
+                               join f in _myDbContext.fournisseurs on a.fournisseurId equals f.id
+                               join u in _myDbContext.utilisateurs on a.utilisateurId equals u.id
+                               join l in _myDbContext.locations on u.locationId equals id
 
-                               select new AchatList()
+                               select new
                                {
 
+                                   id = a.id,
+                                   dateAchat = a.dateAchat,
+                                   numeroFacture = a.numeroFacture,
+                                   locationId = a.locationId,
+                                   location = l.designation,
+                                   fournisseurId = a.fournisseurId,
+                                   fournisseur = f.nom,
+                                   tauxAchat = a.tauxAchat,
+                                   montantTotal = a.montantTotal,
+                                   numeroAchat = a.numeroAchat,
+                                   utilisateurId = a.utilisateurId,
+                                   utilisateur = u.nom + " " + u.postnom,
+                                   detailAchats = a.detailAchats
 
-                                   Id = a.Id,
-
-                                   DateAchat = a.DateAchat,
-
-                                   NumeroFacture = a.NumeroFacture,
-
-                                   MonnaieId = a.MonnaieId,
-
-                                   Monnaie = m.Devise,
-
-                                   LocationId = a.LocationId,
-
-                                   Location = l.Designation,
-
-                                   FournisseurId = a.FournisseurId,
-
-                                   Fournisseur = f.Nom,
-
-                                   TauxAchat = a.TauxAchat,
-
-                                   MontantTotal = a.MontantTotal,
-
-                                   NumeroAchat = a.NumeroAchat,
-
-                                   DetailAchats = a.DetailAchats
                                }).ToListAsync();
-            return Ok(items);
+            return Ok(items.DistinctBy(c => c.id));
         }
 
         [HttpGet("{id:Guid}")]

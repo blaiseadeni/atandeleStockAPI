@@ -27,74 +27,65 @@ namespace ATD_API.Controllers.Traitements
         [HttpPost]
         public async Task<ActionResult<Commande>> Add([FromBody] CommandeMod request)
         {
+            Random random = new Random();
+            int num = random.Next();
+            request.numeroCommande = DateTime.Now.Year.ToString() + DateTime.Now.Month + num;
+            //request.concerne = "rupture de stock";
+            request.tauxDeChange = 1;
+
             var result = await _repository.AddAsync(_mapper.Map<Commande>(request));
-            return Ok("Saved successfullly");
+            return result;
         }
 
         [HttpPut("{id}")]
         public async Task<ActionResult<Commande>> Update(Guid id, [FromBody] CommandeMod request)
         {
             var query = await _repository.FindByIdAsync(id);
-            query.Concerne = request.Concerne;
-            query.Observation = request.Observation;
-            query.FournisseurId = request.FournisseurId;
-            query.NumeroCommande = request.NumeroCommande;
-            query.DateCommande = request.DateCommande;
-            query.DateLivraison = request.DateLivraison;
-            query.Echeance = request.Echeance;
-            query.FournisseurId = request.FournisseurId;
-            query.TauxDeChange = request.TauxDeChange;
-            query.MonnaieId = request.MonnaieId;
-            query.Status = request.Status;
-            query.TotalCommande = request.TotalCommande;
-            query.DetailCommandes = request.DetailCommandes;
+            //query.concerne = request.concerne;
+            //query.observation = request.observation;
+            query.fournisseurId = request.fournisseurId;
+            query.numeroCommande = request.numeroCommande;
+            query.dateCommande = request.dateCommande;
+            query.dateLivraison = request.dateLivraison;
+            //query.echeance = request.echeance;
+            query.fournisseurId = request.fournisseurId;
+            ////query.tauxDeChange = request.tauxDeChange;
+            query.status = request.status;
+            query.totalCommande = request.totalCommande;
+            query.detailCommandes = request.detailCommandes;
 
             var result = await _repository.UpdateAsync(query);
             return Ok("Updated successfully");
         }
 
-        [HttpGet]
-        public async Task<ActionResult<Commande>> FindAll()
+        [HttpGet("all/{id:Guid}")]
+        public async Task<ActionResult<Commande>> FindAll(Guid id)
         {
-            var items = await (from c in _myDbContext.commandes.Include(d => d.DetailCommandes)
-                               join f in _myDbContext.fournisseurs on c.FournisseurId equals f.Id
-                               join m in _myDbContext.monnaies on c.MonnaieId equals m.Id
-
-                               select new CommandeList()
+            var items = await (from c in _myDbContext.commandes.Include(d => d.detailCommandes)
+                               join f in _myDbContext.fournisseurs on c.fournisseurId equals f.id
+                               join u in _myDbContext.utilisateurs on c.utilisateurId equals u.id
+                               join l in _myDbContext.locations on u.locationId equals id
+                               select new
                                {
-                                   Id = c.Id,
-
-                                   NumeroCommande = c.NumeroCommande,
-
-                                   DateCommande = c.DateCommande,
-
-                                   DateLivraison = c.DateLivraison,
-
-                                   Echeance = c.Echeance,
-
-                                   FournisseurId = c.FournisseurId,
-
-                                   Fournisseur = f.Nom,
-
-                                   Observation = c.Observation,
-
-                                   Concerne = c.Concerne,
-
-                                   TotalCommande = c.TotalCommande,
-
-                                   MonnaieId = c.MonnaieId,
-
-                                   Monnaie = m.Libelle,
-
-                                   TauxDeChange = c.TauxDeChange,
-
-                                   Status = c.Status,
-
-                                   DetailCommandes = c.DetailCommandes,
+                                   id = c.id,
+                                   numeroCommande = c.numeroCommande,
+                                   dateCommande = c.dateCommande,
+                                   dateLivraison = c.dateLivraison,
+                                   //echeance = c.echeance,
+                                   fournisseurId = c.fournisseurId,
+                                   fournisseur = f.nom,
+                                   //observation = c.observation,
+                                   //concerne = c.concerne,
+                                   totalCommande = c.totalCommande,
+                                   tauxDeChange = c.tauxDeChange,
+                                   status = c.status,
+                                   utilisateur = u.nom + " " + u.postnom,
+                                   utilisateurId = c.utilisateurId,
+                                   detailCommandes = c.detailCommandes,
 
 
                                }).ToListAsync();
-            return Ok(items);
+            return Ok(items.DistinctBy(c => c.id));
         }
 
         [HttpGet("{id:Guid}")]

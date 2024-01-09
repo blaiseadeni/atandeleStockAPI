@@ -5,7 +5,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 <Project>
   <PropertyGroup>
     <_PublishTargetUrl>D:\wwwroot\ata-ndeleSoft\atdAPI</_PublishTargetUrl>
-    <History>True|2023-11-30T08:09:45.7981360Z;</History>
+    <History>True|2023-12-24T17:38:27.5074832Z;True|2023-11-30T09:09:45.7981360+01:00;</History>
     <LastFailureDetails />
   </PropertyGroup>
 </Project>

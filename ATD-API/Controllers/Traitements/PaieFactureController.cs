@@ -24,7 +24,7 @@ namespace ATD_API.Controllers.Traitements
         [HttpGet("{numero}")]
         public async Task<ActionResult> Find(string numero)
         {
-            var result = _myDbContext.factures.FirstOrDefault(f => f.NumeroFacture.Equals(numero));
+            var result = _myDbContext.factures.FirstOrDefault(f => f.numeroFacture.Equals(numero));
             return Ok(result);
         }
 

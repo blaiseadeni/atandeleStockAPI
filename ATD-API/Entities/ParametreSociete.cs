@@ -5,24 +5,29 @@ namespace ATD_API.Entities;
 
 public partial class ParametreSociete
 {
-    public Guid Id { get; set; }
+    public Guid id { get; set; }
 
-    public string? Denomination { get; set; }
+    public Guid utilisateurId { get; set; }
 
-    public string? Telephone { get; set; }
+    public DateTime created { get; set; }
 
-    public string? Addresse { get; set; }
+    public string? denomination { get; set; }
 
-    public string? Ville { get; set; }
+    public string? telephone { get; set; }
 
-    public string? IdNat { get; set; }
+    public string? addresse { get; set; }
 
-    public string? Rccm { get; set; }
+    public string? ville { get; set; }
 
-    public double Tva { get; set; }
+    public string? idNat { get; set; }
 
-    public string? Monnaie { get; set; }
-    public int Attachement { get; set; }
+    public string? rccm { get; set; }
+
+    public double tva { get; set; }
+
+    public string? monnaie { get; set; }
+
+    public int attachement { get; set; }
 
     public virtual ICollection<Location> Locations { get; set; } = new List<Location>();
 }

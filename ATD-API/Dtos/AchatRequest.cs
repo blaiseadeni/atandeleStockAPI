@@ -4,22 +4,18 @@ namespace ATD_API.Dtos
 {
     public class AchatRequest
     {
-        public DateTime DateAchat { get; set; }
+        public DateTime dateAchat { get; set; }
 
-        public string? NumeroFacture { get; set; }
+        public string? numeroFacture { get; set; }
 
-        public Guid MonnaieId { get; set; }
+        public Guid fournisseurId { get; set; }
 
-        public Guid LocationId { get; set; }
+        public double tauxAchat { get; set; }
 
-        public Guid FournisseurId { get; set; }
+        public double montantTotal { get; set; }
 
-        public double TauxAchat { get; set; }
+        public string? numeroAchat { get; set; }
 
-        public double MontantTotal { get; set; }
-
-        public string? NumeroAchat { get; set; }
-
-        public virtual ICollection<DetailAchat> DetailAchats { get; set; } = new List<DetailAchat>();
+        public virtual ICollection<DetailAchat> detailAchats { get; set; } = new List<DetailAchat>();
     }
 }

@@ -2,11 +2,11 @@
 {
     public class UtilisateurMod
     {
-        public Guid Id { get; set; }
-        public string Nom { get; set; }
-        public string Postnom { get; set; }
-        public Guid LocationId { get; set; }
-        public Guid RoleId { get; set; }
-        public DateTime Created { get; set; } = DateTime.Now;
+        public Guid id { get; set; }
+        public string nom { get; set; }
+        public string postnom { get; set; }
+        public Guid locationId { get; set; }
+        public Guid roleId { get; set; }
+        public DateTime created { get; set; } = DateTime.Now;
     }
 }

@@ -5,29 +5,30 @@ namespace ATD_API.Entities;
 
 public partial class Achat
 {
-    public Guid Id { get; set; }
+    public Guid id { get; set; }
 
-    public DateTime DateAchat { get; set; }
+    public string periode { get; set; }
 
-    public string? NumeroFacture { get; set; }
+    public Guid utilisateurId { get; set; }
 
-    public Guid MonnaieId { get; set; }
+    public DateTime dateAchat { get; set; }
 
-    public Guid LocationId { get; set; }
+    public string? numeroFacture { get; set; }
 
-    public Guid FournisseurId { get; set; }
+    public Guid locationId { get; set; }
 
-    public double TauxAchat { get; set; }
+    public Guid fournisseurId { get; set; }
 
-    public double MontantTotal { get; set; }
+    public double tauxAchat { get; set; }
 
-    public string? NumeroAchat { get; set; }
+    public double montantTotal { get; set; }
 
-    public virtual ICollection<DetailAchat> DetailAchats { get; set; } = new List<DetailAchat>();
+    public string? numeroAchat { get; set; }
+
+    public virtual ICollection<DetailAchat> detailAchats { get; set; } = new List<DetailAchat>();
 
     public virtual Fournisseur Fournisseur { get; set; } = null!;
 
     public virtual Location Location { get; set; } = null!;
 
-    public virtual Monnaie Monnaie { get; set; } = null!;
 }

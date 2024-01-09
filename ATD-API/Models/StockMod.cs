@@ -5,9 +5,9 @@ namespace ATD_API.Entities;
 
 public partial class StockMod
 {
-    public Guid Id { get; set; }
-    public Guid ArticleId { get; set; }
-    public Guid LocationId { get; set; }
-    public double Quantite { get; set; }
+    public Guid id { get; set; }
+    public Guid articleId { get; set; }
+    public Guid locationId { get; set; }
+    public double quantite { get; set; }
 
 }

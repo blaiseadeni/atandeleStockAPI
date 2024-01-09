@@ -24,7 +24,7 @@ namespace ATD_API.Repositories.Classes
 
         public async Task<bool> DeleteAsync(Guid id)
         {
-            var result = _myDbContext.livraisons.FirstOrDefault(a => a.Id == id);
+            var result = _myDbContext.livraisons.FirstOrDefault(a => a.id == id);
             if (result != null)
             {
                 _myDbContext.livraisons.Remove(result);
@@ -37,13 +37,13 @@ namespace ATD_API.Repositories.Classes
 
         public async Task<IEnumerable<Livraison>> FindAllAsync()
         {
-            var result = await _myDbContext.livraisons.Include(d => d.DetailLivraisons).ToListAsync();
+            var result = await _myDbContext.livraisons.Include(d => d.detailLivraisons).ToListAsync();
             return result;
         }
 
         public async Task<Livraison> FindByIdAsync(Guid id)
         {
-            var result = await _myDbContext.livraisons.FirstOrDefaultAsync(c => c.Id == id);
+            var result = await _myDbContext.livraisons.FirstOrDefaultAsync(c => c.id == id);
             return result;
         }
 

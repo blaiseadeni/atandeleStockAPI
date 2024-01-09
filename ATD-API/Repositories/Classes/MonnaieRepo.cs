@@ -23,7 +23,7 @@ namespace ATD_API.Repositories.Classes
 
         public async Task<bool> DeleteAsync(Guid id)
         {
-            var result = _myDbContext.monnaies.FirstOrDefault(a => a.Id == id);
+            var result = _myDbContext.monnaies.FirstOrDefault(a => a.id == id);
             if (result != null)
             {
                 _myDbContext.monnaies.Remove(result);
@@ -41,7 +41,7 @@ namespace ATD_API.Repositories.Classes
 
         public async Task<Monnaie> FindByIdAsync(Guid id)
         {
-            var result = await _myDbContext.monnaies.FirstOrDefaultAsync(c => c.Id == id);
+            var result = await _myDbContext.monnaies.FirstOrDefaultAsync(c => c.id == id);
             return result;
         }
 

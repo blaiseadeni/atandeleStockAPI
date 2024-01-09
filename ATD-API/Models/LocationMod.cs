@@ -7,22 +7,22 @@ namespace ATD_API.Entities;
 public partial class LocationMod
 {
 
-    public string? Designation { get; set; }
+    public string? designation { get; set; }
 
-    public DateTime DateCreation { get; set; }
+    public DateTime dateCreation { get; set; }
 
-    public Guid SocieteId { get; set; }
+    public Guid societeId { get; set; }
 
-    public bool Flag { get; set; }
+    public bool flag { get; set; }
 
-    public string? Addresse { get; set; }
+    public string? addresse { get; set; }
 
-    public string? NumeroAchat { get; set; }
+    public string? numeroAchat { get; set; }
 
-    public string? NumeroCommande { get; set; }
+    public string? numeroCommande { get; set; }
 
-    public string? NumeroFacture { get; set; }
+    public string? numeroFacture { get; set; }
 
-    public string? NumeroLivraison { get; set; }
+    public string? numeroLivraison { get; set; }
 
 }

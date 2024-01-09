@@ -6,14 +6,16 @@ namespace ATD_API.Entities;
 public partial class FournisseurMod
 {
 
-    public string Nom { get; set; } = null!;
+    public string nom { get; set; } = null!;
 
-    public string Ville { get; set; } = null!;
+    public Guid utilisateurId { get; set; }
 
-    public string Adresse { get; set; } = null!;
+    public string ville { get; set; } = null!;
 
-    public string Telephone { get; set; } = null!;
+    public string adresse { get; set; } = null!;
 
-    public DateTime Created { get; set; } = DateTime.Now;
+    public string telephone { get; set; } = null!;
+
+    public DateTime created { get; set; } = DateTime.Now;
 
 }

@@ -6,15 +6,15 @@ namespace ATD_API.Entities;
 public partial class DetailIventaireMod
 {
 
-    public Guid InventaireId { get; set; }
+    public Guid inventaireId { get; set; }
 
-    public Guid ArticleId { get; set; }
+    public Guid articleId { get; set; }
 
-    public string? Emballage { get; set; }
+    public string? emballage { get; set; }
 
-    public double QuantitePhysique { get; set; }
+    public double quantitePhysique { get; set; }
 
-    public double QuantiteLogique { get; set; }
+    public double quantiteLogique { get; set; }
 
-    public double Ecart { get; set; }
+    public double ecart { get; set; }
 }

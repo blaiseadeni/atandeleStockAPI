@@ -2,22 +2,23 @@
 {
     public class ArticleList
     {
-        public Guid Id { get; set; }
-        public string? Code { get; set; }
+        public Guid id { get; set; }
+        public string? code { get; set; }
 
-        public string? Designation { get; set; }
+        public string? designation { get; set; }
 
-        public Guid FamilleId { get; set; }
-        public string Famille { get; set; }
+        public Guid familleId { get; set; }
 
-        public string EmballageGros { get; set; }
+        public string famille { get; set; }
 
-        public string EmballageDetail { get; set; }
+        public string emballageGros { get; set; }
 
-        public int StockMinimal { get; set; }
+        public string emballageDetail { get; set; }
 
-        public int QuantiteDetail { get; set; }
+        public int stockMinimal { get; set; }
 
-        public DateTime Created { get; set; }
+        public int quantiteDetail { get; set; }
+
+        public DateTime created { get; set; }
     }
 }

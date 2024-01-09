@@ -28,14 +28,17 @@ namespace ATD_API.Controllers.Fichiers
         public async Task<ActionResult<Article>> Add([FromBody] ArticleMod request)
         {
             var result = await _repository.AddAsync(_mapper.Map<Article>(request));
-            EmballageByArticle emballage = new EmballageByArticle();
-            var emballageGros = _myDbContext.emballages.Where(x => x.Id.Equals(request.EmballageGrosId)).FirstOrDefault();
-            var emballageDetail = _myDbContext.emballages.Where(x => x.Id.Equals(request.EmballageDetailId)).FirstOrDefault();
-            emballage.ArticleId = result.Id;
-            emballage.EmballageGros = emballageGros.Libelle;
-            emballage.EmballageDetail = emballageDetail.Libelle;
-            _myDbContext.emballageByArticles.Add(emballage);
-            _myDbContext.SaveChangesAsync();
+            if (result != null)
+            {
+                EmballageByArticle emballage = new EmballageByArticle();
+                var emballageGros = _myDbContext.emballages.Where(x => x.id.Equals(result.emballageGrosId)).FirstOrDefault();
+                var emballageDetail = _myDbContext.emballages.Where(x => x.id.Equals(result.emballageDetailId)).FirstOrDefault();
+                emballage.articleId = result.id;
+                emballage.emballageGros = emballageGros.libelle;
+                emballage.emballageDetail = emballageDetail.libelle;
+                _myDbContext.emballageByArticles.Add(emballage);
+                await _myDbContext.SaveChangesAsync();
+            }
             return Ok("Saved successfullly");
         }
 
@@ -43,36 +46,38 @@ namespace ATD_API.Controllers.Fichiers
         public async Task<ActionResult<Article>> Update(Guid id, [FromBody] ArticleMod request)
         {
             var query = await _repository.FindByIdAsync(id);
-            query.FamilleId = request.FamilleId;
-            query.EmballageDetailId = request.EmballageDetailId;
-            query.EmballageGrosId = request.EmballageGrosId;
-            query.Designation = request.Designation;
-            query.StockMinimal = request.StockMinimal;
-            query.QuantiteDetail = request.QuantiteDetail;
+            query.familleId = request.familleId;
+            query.emballageDetailId = request.emballageDetailId;
+            query.emballageGrosId = request.emballageGrosId;
+            query.designation = request.designation;
+            query.stockMinimal = request.stockMinimal;
+            query.quantiteDetail = request.quantiteDetail;
 
             var result = await _repository.UpdateAsync(query);
             return Ok("Updated successfully");
         }
 
-        [HttpGet]
+        [HttpGet("all")]
         public async Task<ActionResult<Article>> FindAll()
         {
             var items = await (from a in _myDbContext.articles
-                               join f in _myDbContext.familles on a.FamilleId equals f.Id
-                               join e in _myDbContext.emballageByArticles on a.Id equals e.ArticleId
-                               select new ArticleList()
+                               join f in _myDbContext.familles on a.familleId equals f.id
+                               join e in _myDbContext.emballageByArticles on a.id equals e.articleId
+                               join u in _myDbContext.utilisateurs on a.utilisateurId equals u.id
+                               select new
                                {
-                                   Id = a.Id,
-                                   Code = a.Code,
-                                   Designation = a.Designation,
-                                   Famille = f.Libelle,
-                                   FamilleId = a.FamilleId,
-                                   EmballageGros = e.EmballageGros,
-                                   EmballageDetail = e.EmballageDetail,
-                                   StockMinimal = a.StockMinimal,
-                                   QuantiteDetail = a.QuantiteDetail,
-                                   Created = a.Created
-
+                                   id = a.id,
+                                   code = a.code,
+                                   designation = a.designation,
+                                   famille = f.libelle,
+                                   familleId = a.familleId,
+                                   emballageGros = e.emballageGros,
+                                   emballageDetail = e.emballageDetail,
+                                   stockMinimal = a.stockMinimal,
+                                   quantiteDetail = a.quantiteDetail,
+                                   created = a.created,
+                                   utilisateur = u.nom + " " + u.postnom,
+                                   utilisateurId = a.utilisateurId
                                }).ToListAsync();
             return Ok(items);
         }

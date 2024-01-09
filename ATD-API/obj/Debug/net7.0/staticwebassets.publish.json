@@ -1,0 +1,88 @@
+{
+  "Version": 1,
+  "Hash": "H6+m+4C7KHHCeogy2ezDt+p/piFaQN3h5HJkhQZucSk=",
+  "Source": "ATD-API",
+  "BasePath": "_content/ATD-API",
+  "Mode": "Default",
+  "ManifestType": "Publish",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "ATD-API\\wwwroot",
+      "Source": "ATD-API",
+      "ContentRoot": "D:\\APS && ANGULAR\\Stock-Facturation\\ATD-API\\ATD-API\\wwwroot\\",
+      "BasePath": "_content/ATD-API",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "D:\\APS && ANGULAR\\Stock-Facturation\\ATD-API\\ATD-API\\wwwroot\\ReportBA.rdlc",
+      "SourceId": "ATD-API",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\APS && ANGULAR\\Stock-Facturation\\ATD-API\\ATD-API\\wwwroot\\",
+      "BasePath": "_content/ATD-API",
+      "RelativePath": "ReportBA.rdlc",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Always",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\ReportBA.rdlc"
+    },
+    {
+      "Identity": "D:\\APS && ANGULAR\\Stock-Facturation\\ATD-API\\ATD-API\\wwwroot\\ReportBC.rdlc",
+      "SourceId": "ATD-API",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\APS && ANGULAR\\Stock-Facturation\\ATD-API\\ATD-API\\wwwroot\\",
+      "BasePath": "_content/ATD-API",
+      "RelativePath": "ReportBC.rdlc",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Always",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\ReportBC.rdlc"
+    },
+    {
+      "Identity": "D:\\APS && ANGULAR\\Stock-Facturation\\ATD-API\\ATD-API\\wwwroot\\ReportBL.rdlc",
+      "SourceId": "ATD-API",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\APS && ANGULAR\\Stock-Facturation\\ATD-API\\ATD-API\\wwwroot\\",
+      "BasePath": "_content/ATD-API",
+      "RelativePath": "ReportBL.rdlc",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Always",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\ReportBL.rdlc"
+    },
+    {
+      "Identity": "D:\\APS && ANGULAR\\Stock-Facturation\\ATD-API\\ATD-API\\wwwroot\\ReportFacture.rdlc",
+      "SourceId": "ATD-API",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\APS && ANGULAR\\Stock-Facturation\\ATD-API\\ATD-API\\wwwroot\\",
+      "BasePath": "_content/ATD-API",
+      "RelativePath": "ReportFacture.rdlc",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Always",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\ReportFacture.rdlc"
+    }
+  ]
+}

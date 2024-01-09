@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121.
+-->
+<Project>
+  <PropertyGroup>
+    <_PublishTargetUrl>D:\wwwroot\atandele\API</_PublishTargetUrl>
+    <History>False|2023-12-26T09:00:18.0181359Z;True|2023-12-26T09:08:09.8555091+01:00;</History>
+    <LastFailureDetails />
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="DemoConnectionString">
+      <Value>server=LOMOTECH%3bdatabase=StockFacturation%3bUser ID=sa%3bPassword=root%3bTrusted_Connection=true%3bTrustServerCertificate=True</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+</Project>
